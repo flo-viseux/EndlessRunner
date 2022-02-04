@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4721757697330852544}
   - component: {fileID: 4372985979376721151}
   - component: {fileID: 4400415001361847921}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3416865989585238984}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SemiWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
