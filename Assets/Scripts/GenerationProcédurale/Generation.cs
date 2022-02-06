@@ -12,7 +12,9 @@ public class Generation : MonoBehaviour
     [SerializeField] private GameObject Stairs; 
     [SerializeField] private GameObject Nothing;
     [SerializeField] private List<GameObject> Obstacles;
-    [SerializeField] private GameObject currentObstacle;
+    [SerializeField] private GameObject currentObstacleLeft;
+    [SerializeField] private GameObject currentObstacleCenter;
+    [SerializeField] private GameObject currentObstacleRight;
     public float speed;
     #endregion
 
@@ -45,8 +47,14 @@ public class Generation : MonoBehaviour
             speed = speed * 1.0005f;
         }
 
-        currentObstacle = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
-        FindCurrentObstacle(currentObstacle);
+        currentObstacleLeft = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
+        FindCurrentObstacle(currentObstacleLeft);
+
+        currentObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(2).gameObject;
+        FindCurrentObstacle(currentObstacleCenter);
+
+        currentObstacleRight = plateformes[plateformes.Count - 1].transform.GetChild(3).gameObject;
+        FindCurrentObstacle(currentObstacleRight);
 
     }
 
@@ -61,8 +69,12 @@ public class Generation : MonoBehaviour
         newPlateforme.transform.position = plateformes[plateformes.Count - 2].transform.position + new Vector3(0f, 0f, 3f);
 
         GameObject newObstacleLeft = null;
+        GameObject newObstacleCenter = null;
+        GameObject newObstacleRight= null;
 
-        CreateNewObstacle(newObstacleLeft, newPlateforme);
+        CreateNewObstacle(newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+        CreateNewObstacle(newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
+        CreateNewObstacle(newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
 
         StartCoroutine(GenerationPlateforme());
     }
@@ -91,7 +103,7 @@ public class Generation : MonoBehaviour
         }
     }
 
-    public void CreateNewObstacle(GameObject newObstacle, GameObject plateforme)
+    public void CreateNewObstacle(GameObject newObstacle, GameObject plateforme, Vector3 localPos)
     {
         if(a == ((int)obstacles.wall))
         {
@@ -101,13 +113,13 @@ public class Generation : MonoBehaviour
                 numeroObstacle = 0;
 
             newObstacle = Instantiate(Obstacles[numeroObstacle], plateforme.transform);
-            newObstacle.transform.localPosition = new Vector3(-2, 0, 0);
+            newObstacle.transform.localPosition = localPos;
         }
 
         if(a == ((int)obstacles.stairs))
         {
             newObstacle = Instantiate(Obstacles[1], plateforme.transform);
-            newObstacle.transform.localPosition = new Vector3(-2, 0, 0);
+            newObstacle.transform.localPosition = localPos;
         }
 
         if(a == ((int)obstacles.semiWall))
@@ -118,13 +130,13 @@ public class Generation : MonoBehaviour
                 numeroObstacle = 0;
                 
             newObstacle = Instantiate(Obstacles[numeroObstacle], plateforme.transform);
-            newObstacle.transform.localPosition = new Vector3(-2, 0, 0);
+            newObstacle.transform.localPosition = localPos;
         }
 
         if(a == ((int)obstacles.nothing))
         {
             newObstacle = Instantiate(Obstacles[Random.Range(0, Obstacles.Count)], plateforme.transform);
-            newObstacle.transform.localPosition = new Vector3(-2, 0, 0);
+            newObstacle.transform.localPosition = localPos;
         }
     }
 }
