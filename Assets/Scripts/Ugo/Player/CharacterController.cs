@@ -41,7 +41,7 @@ public class CharacterController : MonoBehaviour
 
     public bool moveLeft()
     {
-        Debug.Log("moveLeft");
+        // Debug.Log("moveLeft");
         if(currentCorridor == 0)
         {
             return false;
