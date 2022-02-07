@@ -741,8 +741,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
-  m_sharedMaterial: {fileID: 2100000, guid: 79459efec17a4d00a321bdcc27bbc385, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -766,8 +766,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1198,10 +1198,6 @@ PrefabInstance:
       propertyPath: corridorPosition.Array.data[2]
       value: 
       objectReference: {fileID: 618760981}
-    - target: {fileID: 1281558871995854610, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1281558871995854612, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: m_Name
       value: Player
