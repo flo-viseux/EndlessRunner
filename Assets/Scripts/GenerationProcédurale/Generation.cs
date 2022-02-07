@@ -60,7 +60,7 @@ public class Generation : MonoBehaviour
 
     public IEnumerator GenerationPlateforme()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.195f);
         
         GameObject newPlateforme = Instantiate(Plateforme, Vector3.zero, Quaternion.identity);
 
