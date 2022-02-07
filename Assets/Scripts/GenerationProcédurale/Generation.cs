@@ -15,20 +15,20 @@ public class Generation : MonoBehaviour
     [SerializeField] private GameObject currentObstacleLeft;
     [SerializeField] private GameObject currentObstacleCenter;
     [SerializeField] private GameObject currentObstacleRight;
+
+    public float intervalleDuration;
     public float speed;
     #endregion
 
-    #region API
-    public enum obstacles
-    {
-        nothing,
-        stairs,
-        wall,
-        semiWall
-    }
-
-    public int a;
-    #endregion
+    // #region API
+    // public enum obstacles
+    // {
+    //     nothing,
+    //     stairs,
+    //     wall,
+    //     semiWall
+    // }
+    // #endregion
 
     // Start is called before the first frame update
     private void Awake() 
@@ -41,26 +41,39 @@ public class Generation : MonoBehaviour
         StartCoroutine(GenerationPlateforme());
     }
 
-    private void Update() {
-        if(speed < 15f)
+    private void Update() 
+    {
+        if(speed < 5)
         {
-            speed = speed * 1.0005f;
+            intervalleDuration = 0.52f;
+        }
+        else if(speed > 5f && speed < 8f)
+        {
+            intervalleDuration = 0.45f;
+        }
+        else if(speed > 8f && speed < 11f)
+        {
+            intervalleDuration = 0.35f;
+        }
+        else if(speed > 11f)
+        {
+            intervalleDuration = 0.24f;
+        }
+
+        if(speed < 11f)
+        {
+            speed = speed + 0.001f;
         }
 
         currentObstacleLeft = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
-        FindCurrentObstacle(currentObstacleLeft);
-
         currentObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(2).gameObject;
-        FindCurrentObstacle(currentObstacleCenter);
-
         currentObstacleRight = plateformes[plateformes.Count - 1].transform.GetChild(3).gameObject;
-        FindCurrentObstacle(currentObstacleRight);
 
     }
 
     public IEnumerator GenerationPlateforme()
     {
-        yield return new WaitForSeconds(0.195f);
+        yield return new WaitForSeconds(intervalleDuration);
         
         GameObject newPlateforme = Instantiate(Plateforme, Vector3.zero, Quaternion.identity);
 
@@ -72,40 +85,39 @@ public class Generation : MonoBehaviour
         GameObject newObstacleCenter = null;
         GameObject newObstacleRight= null;
 
-        CreateNewObstacle(newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
-        CreateNewObstacle(newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
-        CreateNewObstacle(newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+        CreateNewObstacle(currentObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+        CreateNewObstacle(currentObstacleCenter, newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
+        CreateNewObstacle(currentObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
 
         StartCoroutine(GenerationPlateforme());
     }
 
-    public void FindCurrentObstacle(GameObject currentObstacle)
+    // public void FindCurrentObstacle(GameObject currentObstacle, int index)
+    // {
+    //     if(currentObstacle.layer == 7)
+    //     {
+    //         index = 0;
+    //     }
+        
+    //     if(currentObstacle.layer == 8)
+    //     {
+    //         index = 1;
+    //     }
+        
+    //     if(currentObstacle.layer == 9)
+    //     {
+    //         index = 2;
+    //     }
+        
+    //     if(currentObstacle.layer == 10)
+    //     {
+    //         index = 3;
+    //     }
+    // }
+
+    public void CreateNewObstacle(GameObject currentObstacle, GameObject newObstacle, GameObject plateforme, Vector3 localPos)
     {
         if(currentObstacle.layer == 7)
-        {
-            a = ((int)obstacles.wall);
-            Debug.Log("wall");
-        }
-        else if(currentObstacle.layer == 8)
-        {
-            a = ((int)obstacles.nothing);
-            Debug.Log("nothing");
-        }
-        else if(currentObstacle.layer == 9)
-        {
-            a = ((int)obstacles.stairs);
-            Debug.Log("stairs");
-        }
-        else if(currentObstacle.layer == 10)
-        {
-            a = ((int)obstacles.semiWall);
-            Debug.Log("semi wall");
-        }
-    }
-
-    public void CreateNewObstacle(GameObject newObstacle, GameObject plateforme, Vector3 localPos)
-    {
-        if(a == ((int)obstacles.wall))
         {
             int numeroObstacle = Random.Range(0, Obstacles.Count);
 
@@ -115,27 +127,27 @@ public class Generation : MonoBehaviour
             newObstacle = Instantiate(Obstacles[numeroObstacle], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
-
-        if(a == ((int)obstacles.stairs))
+        
+        if(currentObstacle.layer == 8)
+        {
+            newObstacle = Instantiate(Obstacles[Random.Range(0, Obstacles.Count)], plateforme.transform);
+            newObstacle.transform.localPosition = localPos;
+        }
+        
+        if(currentObstacle.layer == 9)
         {
             newObstacle = Instantiate(Obstacles[1], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
-
-        if(a == ((int)obstacles.semiWall))
+        
+        if(currentObstacle.layer == 10)
         {
             int numeroObstacle = Random.Range(0, Obstacles.Count);
 
-            if(numeroObstacle == 2)
-                numeroObstacle = 0;
+            // if(numeroObstacle == 1 || numeroObstacle == 3)
+            //     numeroObstacle = 0;
                 
-            newObstacle = Instantiate(Obstacles[numeroObstacle], plateforme.transform);
-            newObstacle.transform.localPosition = localPos;
-        }
-
-        if(a == ((int)obstacles.nothing))
-        {
-            newObstacle = Instantiate(Obstacles[Random.Range(0, Obstacles.Count)], plateforme.transform);
+            newObstacle = Instantiate(Obstacles[0], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
     }
