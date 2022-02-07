@@ -36,7 +36,7 @@ public class PlayerMoveInput : MonoBehaviour
     {
         if (actionTimeRemaining <= 0 && _characterController.isGrounded())
         {
-            // Debug.Log("---------------------------------- startJump");
+            // Debug.Log("startJump");
             _characterController.jump();
             _animator.SetTrigger(jumpHash);
             actionTimeRemaining = actionDuration;
