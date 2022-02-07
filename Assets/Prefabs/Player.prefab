@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1281558871995854612}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.006000001, y: 0.03400004, z: -0.0009999275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravityFactorJumpUp: 1
   _playerInput: {fileID: 1281558871995854608}
-  _animator: {fileID: 0}
+  _animator: {fileID: 4657732092179197804}
   actionDuration: 0.15
 --- !u!114 &1281558871995854608
 MonoBehaviour:
@@ -384,5 +384,10 @@ PrefabInstance:
 --- !u!4 &1604330936029869334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e28a11da3712f1640841072168e60511, type: 3}
+  m_PrefabInstance: {fileID: 1281558871903015677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4657732092179197804 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: e28a11da3712f1640841072168e60511, type: 3}
   m_PrefabInstance: {fileID: 1281558871903015677}
   m_PrefabAsset: {fileID: 0}
