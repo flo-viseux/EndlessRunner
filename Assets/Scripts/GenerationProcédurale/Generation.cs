@@ -53,11 +53,11 @@ public class Generation : MonoBehaviour
         }
         else if(speed > 8f && speed < 11f)
         {
-            intervalleDuration = 0.35f;
+            intervalleDuration = 0.36f;
         }
         else if(speed > 11f)
         {
-            intervalleDuration = 0.24f;
+            intervalleDuration = 0.25f;
         }
 
         if(speed < 11f)
@@ -88,6 +88,11 @@ public class Generation : MonoBehaviour
         CreateNewObstacle(currentObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
         CreateNewObstacle(currentObstacleCenter, newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
         CreateNewObstacle(currentObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+
+        if(newObstacleLeft == Obstacles[1] && newObstacleCenter == Obstacles[1] && newObstacleRight == Obstacles[1])
+        {
+            newObstacleRight = Obstacles[2];
+        }
 
         StartCoroutine(GenerationPlateforme());
     }
