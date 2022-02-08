@@ -15,24 +15,19 @@ public class Generation : MonoBehaviour
     [SerializeField] private GameObject currentObstacleLeft;
     [SerializeField] private GameObject currentObstacleCenter;
     [SerializeField] private GameObject currentObstacleRight;
-
-    public float intervalleDuration;
-    public float speed;
     #endregion
 
-    // #region API
-    // public enum obstacles
-    // {
-    //     nothing,
-    //     stairs,
-    //     wall,
-    //     semiWall
-    // }
-    // #endregion
+    #region Attributes
+    public float intervalleDuration;
+    public float speed;
+
+    public bool hasStarted;
+    #endregion
 
     // Start is called before the first frame update
     private void Awake() 
     {
+        hasStarted = false;
         Obstacles.Add(Nothing);
         Obstacles.Add(Wall);
         Obstacles.Add(SemiWall);
@@ -43,9 +38,13 @@ public class Generation : MonoBehaviour
 
     private void Update() 
     {
-        if(speed < 5)
+        if(speed == 0)
         {
-            intervalleDuration = 0.52f;
+            intervalleDuration = 8f;
+        }
+        else if(speed < 5 && speed != 0)
+        {
+            intervalleDuration = 0.7f;
         }
         else if(speed > 5f && speed < 8f)
         {
@@ -60,7 +59,8 @@ public class Generation : MonoBehaviour
             intervalleDuration = 0.25f;
         }
 
-        if(speed < 11f)
+
+        if(speed < 11f && hasStarted == true)
         {
             speed = speed + 0.001f;
         }
@@ -148,9 +148,6 @@ public class Generation : MonoBehaviour
         if(currentObstacle.layer == 10)
         {
             int numeroObstacle = Random.Range(0, Obstacles.Count);
-
-            // if(numeroObstacle == 1 || numeroObstacle == 3)
-            //     numeroObstacle = 0;
                 
             newObstacle = Instantiate(Obstacles[0], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
