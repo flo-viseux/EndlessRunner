@@ -10,20 +10,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Generation generation;
 
+    [SerializeField] private Canvas pressKey;
 
     private void Start() 
     {
         generation = GameObject.Find("Generation").GetComponent<Generation>();
         startAction = playerInput.actions.FindAction("StartGame");
+        pressKey.enabled = true;
     }
 
     public void OnStartGame()
     {
         if(Timeline.activeInHierarchy == false)
         {
-            Timeline.SetActive(true);
-            generation.hasStarted = true;
+            StartCoroutine(StartGame());
         }
             
+    }
+
+    public IEnumerator StartGame()
+    {
+        Timeline.SetActive(true);
+        pressKey.enabled = false;
+
+        yield return new WaitForSeconds(3f);
+
+        generation.hasStarted = true;
     }
 }
