@@ -17,6 +17,7 @@ public class PlayerMoveInput : MonoBehaviour
 
     int jumpHash = Animator.StringToHash("jump");
     int slideHash = Animator.StringToHash("slide");
+    int deathHash = Animator.StringToHash("death");
 
     public float actionDuration = 1f;
     private float actionTimeRemaining = 0f;
@@ -32,6 +33,19 @@ public class PlayerMoveInput : MonoBehaviour
         _animator.SetFloat("speed", 1.0f);
     }
 
+    public void OnDeath()
+    {
+        _animator.SetTrigger(deathHash);
+    }
+    
+    private void OnCollisionEnter(Collision other) 
+    {
+        if (other.gameObject.CompareTag("Obstacles"))
+        {
+            OnDeath();
+        }
+    }
+    
     public void OnJump()
     {
         if (actionTimeRemaining <= 0 && _characterController.isGrounded())
@@ -72,7 +86,7 @@ public class PlayerMoveInput : MonoBehaviour
     }
     #endregion
 
-    #region Private
+    #region Unity methods
     private void Update() 
     {
         AnimatorStateInfo stateInfo = _animator.GetCurrentAnimatorStateInfo(0);
