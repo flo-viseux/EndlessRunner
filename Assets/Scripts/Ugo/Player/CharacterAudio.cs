@@ -6,6 +6,7 @@ public class CharacterAudio : MonoBehaviour
     [SerializeField] private RepetitiveSound JumpSound = null;
     [SerializeField] private RepetitiveSound SlideSound = null;
     [SerializeField] private RepetitiveSound FootStepSound = null;
+    [SerializeField] private RepetitiveSound DeathSound = null;
     [SerializeField] private CharacterAnimationsEvents characterAnimationsEvents = null;
     [SerializeField] float minDelayBetweenSounds = 0.2f;
     #endregion
@@ -20,6 +21,7 @@ public class CharacterAudio : MonoBehaviour
         characterAnimationsEvents.OnJump += PlayJumpSound;
         characterAnimationsEvents.OnSlide += PlaySlideSound; 
         characterAnimationsEvents.OnFootStep += PlayFootStepSound;   
+        characterAnimationsEvents.OnDeath += PlayDeathSound;
     }
 
     private void PlayFootStepSound()
@@ -47,6 +49,16 @@ public class CharacterAudio : MonoBehaviour
         if(Time.time - minDelayBetweenSounds > nextAllowTime)
         {
             SlideSound.PlaySound();
+        }
+
+        nextAllowTime = Time.time + minDelayBetweenSounds;
+    }
+
+    private void PlayDeathSound()
+    {
+        if(Time.time - minDelayBetweenSounds > nextAllowTime)
+        {
+            DeathSound.PlaySound();
         }
 
         nextAllowTime = Time.time + minDelayBetweenSounds;
