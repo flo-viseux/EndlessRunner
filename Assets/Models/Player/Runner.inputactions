@@ -164,6 +164,7 @@
                 },
                 {
                     "name": "",
+
                     "id": "d386312a-7ace-4968-be2f-d2c07cd7ef28",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -187,10 +188,11 @@
                 {
                     "name": "",
                     "id": "2f88bac1-ee61-4a9d-8628-784bb4763903",
+
                     "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Slide",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -212,7 +214,7 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -234,7 +236,7 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -247,6 +249,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "StartGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d386312a-7ace-4968-be2f-d2c07cd7ef28",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
