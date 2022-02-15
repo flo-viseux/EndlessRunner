@@ -1,6 +1,6 @@
-﻿#if ENABLE_INPUT_SYSTEM 
-using UnityEngine.InputSystem;
-#endif
+﻿//#if ENABLE_INPUT_SYSTEM 
+//using UnityEngine.InputSystem;
+//#endif
 
 using UnityEngine;
 
@@ -74,47 +74,47 @@ namespace UnityTemplateProjects
         [Tooltip("Whether or not to invert our Y axis for mouse input to rotation.")]
         public bool invertY = false;
 
-#if ENABLE_INPUT_SYSTEM
-        InputAction movementAction;
-        InputAction verticalMovementAction;
-        InputAction lookAction;
-        InputAction boostFactorAction;
-        bool        mouseRightButtonPressed;
+        /*#if ENABLE_INPUT_SYSTEM
+                InputAction movementAction;
+                InputAction verticalMovementAction;
+                InputAction lookAction;
+                InputAction boostFactorAction;
+                bool        mouseRightButtonPressed;
 
-        void Start()
-        {
-            var map = new InputActionMap("Simple Camera Controller");
+                void Start()
+                {
+                    var map = new InputActionMap("Simple Camera Controller");
 
-            lookAction = map.AddAction("look", binding: "<Mouse>/delta");
-            movementAction = map.AddAction("move", binding: "<Gamepad>/leftStick");
-            verticalMovementAction = map.AddAction("Vertical Movement");
-            boostFactorAction = map.AddAction("Boost Factor", binding: "<Mouse>/scroll");
+                    lookAction = map.AddAction("look", binding: "<Mouse>/delta");
+                    movementAction = map.AddAction("move", binding: "<Gamepad>/leftStick");
+                    verticalMovementAction = map.AddAction("Vertical Movement");
+                    boostFactorAction = map.AddAction("Boost Factor", binding: "<Mouse>/scroll");
 
-            lookAction.AddBinding("<Gamepad>/rightStick").WithProcessor("scaleVector2(x=15, y=15)");
-            movementAction.AddCompositeBinding("Dpad")
-                .With("Up", "<Keyboard>/w")
-                .With("Up", "<Keyboard>/upArrow")
-                .With("Down", "<Keyboard>/s")
-                .With("Down", "<Keyboard>/downArrow")
-                .With("Left", "<Keyboard>/a")
-                .With("Left", "<Keyboard>/leftArrow")
-                .With("Right", "<Keyboard>/d")
-                .With("Right", "<Keyboard>/rightArrow");
-            verticalMovementAction.AddCompositeBinding("Dpad")
-                .With("Up", "<Keyboard>/pageUp")
-                .With("Down", "<Keyboard>/pageDown")
-                .With("Up", "<Keyboard>/e")
-                .With("Down", "<Keyboard>/q")
-                .With("Up", "<Gamepad>/rightshoulder")
-                .With("Down", "<Gamepad>/leftshoulder");
-            boostFactorAction.AddBinding("<Gamepad>/Dpad").WithProcessor("scaleVector2(x=1, y=4)");
+                    lookAction.AddBinding("<Gamepad>/rightStick").WithProcessor("scaleVector2(x=15, y=15)");
+                    movementAction.AddCompositeBinding("Dpad")
+                        .With("Up", "<Keyboard>/w")
+                        .With("Up", "<Keyboard>/upArrow")
+                        .With("Down", "<Keyboard>/s")
+                        .With("Down", "<Keyboard>/downArrow")
+                        .With("Left", "<Keyboard>/a")
+                        .With("Left", "<Keyboard>/leftArrow")
+                        .With("Right", "<Keyboard>/d")
+                        .With("Right", "<Keyboard>/rightArrow");
+                    verticalMovementAction.AddCompositeBinding("Dpad")
+                        .With("Up", "<Keyboard>/pageUp")
+                        .With("Down", "<Keyboard>/pageDown")
+                        .With("Up", "<Keyboard>/e")
+                        .With("Down", "<Keyboard>/q")
+                        .With("Up", "<Gamepad>/rightshoulder")
+                        .With("Down", "<Gamepad>/leftshoulder");
+                    boostFactorAction.AddBinding("<Gamepad>/Dpad").WithProcessor("scaleVector2(x=1, y=4)");
 
-            movementAction.Enable();
-            lookAction.Enable();
-            verticalMovementAction.Enable();
-            boostFactorAction.Enable();
-        }
-#endif
+                    movementAction.Enable();
+                    lookAction.Enable();
+                    verticalMovementAction.Enable();
+                    boostFactorAction.Enable();
+                }
+        #endif*/
 
         void OnEnable()
         {
@@ -125,12 +125,14 @@ namespace UnityTemplateProjects
         Vector3 GetInputTranslationDirection()
         {
             Vector3 direction = Vector3.zero;
-#if ENABLE_INPUT_SYSTEM
-            var moveDelta = movementAction.ReadValue<Vector2>();
-            direction.x = moveDelta.x;
-            direction.z = moveDelta.y;
-            direction.y = verticalMovementAction.ReadValue<Vector2>().y;
-#else
+            
+            #if ENABLE_INPUT_SYSTEM
+                        var moveDelta = movementAction.ReadValue<Vector2>();
+                        direction.x = moveDelta.x;
+                        direction.z = moveDelta.y;
+                        direction.y = verticalMovementAction.ReadValue<Vector2>().y;
+            #else
+            
             if (Input.GetKey(KeyCode.W))
             {
                 direction += Vector3.forward;
