@@ -3,12 +3,15 @@ using UnityEngine;
 public class CharacterAudio : MonoBehaviour
 {
     #region Serialized fields
+    [Header("Delay")]
+    [SerializeField] private CharacterAnimationsEvents characterAnimationsEvents = null;
+    [SerializeField] float minDelayBetweenSounds = 0.2f;
+
+    [Header ("Sounds")]
     [SerializeField] private RepetitiveSound JumpSound = null;
     [SerializeField] private RepetitiveSound SlideSound = null;
     [SerializeField] private RepetitiveSound FootStepSound = null;
     [SerializeField] private RepetitiveSound DeathSound = null;
-    [SerializeField] private CharacterAnimationsEvents characterAnimationsEvents = null;
-    [SerializeField] float minDelayBetweenSounds = 0.2f;
     #endregion
 
     #region Attributes

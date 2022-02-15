@@ -166,7 +166,7 @@
                     "name": "",
 
                     "id": "d386312a-7ace-4968-be2f-d2c07cd7ef28",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -188,8 +188,8 @@
                 {
                     "name": "",
                     "id": "2f88bac1-ee61-4a9d-8628-784bb4763903",
+                    "path": "<Keyboard>/s",
 
-                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
