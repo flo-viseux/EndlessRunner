@@ -1,11 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Serialized fields
+    [SerializeField] private CharacterAnimationsEvents events = null;
+    #endregion
+    
     #region Attributes
     public Transform[] corridorPosition;
+    public Animator _animator;
+    private int jumpHash = Animator.StringToHash("jump");
+    int slideHash = Animator.StringToHash("slide");
+    int deathHash = Animator.StringToHash("death");
     public int currentCorridor = 1;
 
     //public float _gravityFactorJumpDown = 1.4f;
@@ -28,12 +37,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void jump()
     {
-        //Ajoutez de la jump force à la vélocité du joueur
+        _animator.SetTrigger(jumpHash);
+        //Ajoutez de la jump force ï¿½ la vï¿½locitï¿½ du joueur
         if (_isGrounded)
         {
             //_velocity += _jumpForce * Vector3.up;
             //_startJump = true;
         }
+    }
+
+    public void slide()
+    {
+        _animator.SetTrigger(slideHash);
     }
 
     public void moveLeft()
@@ -62,8 +77,11 @@ public class PlayerMovement : MonoBehaviour
             currentCorridor += 1;
             transform.position += new Vector3(2f, 0f, 0f);
         }
+    }
 
-        
+    public void OnDeath()
+    {
+        _animator.SetTrigger(deathHash);
     }
 
     public void Movements()
@@ -78,21 +96,37 @@ public class PlayerMovement : MonoBehaviour
         {
             moveLeft();
         }
+        
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            slide();
+        }
 
         //transform.position = corridorPosition[currentCorridor].position;
             
     }
     #endregion
-    // Start is called before the first frame update
+
+    #region Unity methods
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         Movements();
+    }
+
+    public void Awake() 
+    {
+        events.OnJump += jump;
+        events.OnSlide += slide;
     }
 
     void OnDrawGizmos()
@@ -103,4 +137,5 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position - Vector3.right * 2, Vector3.up * 2);
     }
+    #endregion
 }

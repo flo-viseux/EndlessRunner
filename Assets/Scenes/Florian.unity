@@ -3417,10 +3417,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f827d4bfe79a25c4f871141f64fcf274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  events: {fileID: 1985096402}
   corridorPosition:
   - {fileID: 492031067}
   - {fileID: 1857104301}
   - {fileID: 105002911}
+  _animator: {fileID: 1994560946}
   currentCorridor: 1
   raycastOffset: {x: 0, y: 0.6, z: 0}
 --- !u!1 &1918407212
@@ -3642,6 +3644,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6965df55ac13f6b4c8a02af250f323f2, type: 3}
+--- !u!114 &1985096402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 597474702, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+  m_PrefabInstance: {fileID: 1994560945}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f171328f2967a8c4aa9f65c2c7b46167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1994560945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3741,9 +3754,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4657732092179197804, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1281558871995854608, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+--- !u!95 &1994560946 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4657732092179197804, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+  m_PrefabInstance: {fileID: 1994560945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2144002330
 PrefabInstance:
   m_ObjectHideFlags: 0
