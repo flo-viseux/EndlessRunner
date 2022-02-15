@@ -9,17 +9,21 @@ public class PlayerMoveInput : MonoBehaviour
     private InputAction _moveAction = null;
     private InputAction _jumpAction = null;
     private CharacterController _characterController = null;
+    
+    [Header("Player")]
     public float _gravityFactorJumpUp = 1;
-
     public PlayerInput _playerInput = null;
 
     public Animator _animator;
+    public float actionDuration = 1f;
+
+    [Header("Colliders")]
+    public CapsuleCollider capsuleColliderUp;
+    public CapsuleCollider capsuleColliderDown;
 
     int jumpHash = Animator.StringToHash("jump");
     int slideHash = Animator.StringToHash("slide");
     int deathHash = Animator.StringToHash("death");
-
-    public float actionDuration = 1f;
     private float actionTimeRemaining = 0f;
     #endregion
 
@@ -31,6 +35,8 @@ public class PlayerMoveInput : MonoBehaviour
         _jumpAction = _playerInput.actions.FindAction("Jump", true);
 
         _animator.SetFloat("speed", 1.0f);
+        capsuleColliderDown.enabled = false;
+        capsuleColliderUp.enabled = true;
     }
 
     public void OnDeath()
@@ -54,6 +60,8 @@ public class PlayerMoveInput : MonoBehaviour
             _characterController.jump();
             _animator.SetTrigger(jumpHash);
             actionTimeRemaining = actionDuration;
+            capsuleColliderUp.enabled = true;
+            capsuleColliderDown.enabled = false;
         }
     }
 
@@ -63,6 +71,8 @@ public class PlayerMoveInput : MonoBehaviour
         {
             _animator.SetTrigger(slideHash);
             actionTimeRemaining = actionDuration;
+            capsuleColliderDown.enabled = true;
+            capsuleColliderUp.enabled = false;
         }
     }
 
