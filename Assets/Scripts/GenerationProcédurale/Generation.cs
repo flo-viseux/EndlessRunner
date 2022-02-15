@@ -27,7 +27,7 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() 
     {
-        hasStarted = false;
+        hasStarted = true;
         Obstacles.Add(Nothing);
         Obstacles.Add(Wall);
         Obstacles.Add(SemiWall);

@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMoveInput : MonoBehaviour
 {
     #region Attributes
-    private InputAction _moveAction = null;
-    private InputAction _jumpAction = null;
+    //private InputAction _moveAction = null;
+    //private InputAction _jumpAction = null;
     private CharacterController _characterController = null;
     
     [Header("Player")]
     public float _gravityFactorJumpUp = 1;
-    public PlayerInput _playerInput = null;
+    //public PlayerInput _playerInput = null;
 
     public Animator _animator;
     public float actionDuration = 1f;
@@ -27,7 +26,7 @@ public class PlayerMoveInput : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         //_moveAction = _playerInput.actions.FindAction("Move", true);
-        _jumpAction = _playerInput.actions.FindAction("Jump", true);
+        //_jumpAction = _playerInput.actions.FindAction("Jump", true);
 
         _animator.SetFloat("speed", 1.0f);
     }
@@ -101,12 +100,12 @@ public class PlayerMoveInput : MonoBehaviour
     {
         //Récupérer le player input
         //Vector2 inputMove = _moveAction.ReadValue<Vector2>();
-        float inputJump = _jumpAction.ReadValue<float>();
+        //float inputJump = _jumpAction.ReadValue<float>();
 
-        if (inputJump > 0.5f)
-        {
+        //if (inputJump > 0.5f)
+        //{
             //_characterController.setCustomGravityFactor(_gravityFactorJumpUp);
-        }
+        //}
     }
     #endregion
 }
