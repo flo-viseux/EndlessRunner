@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     //public float _gravityFactorJumpUp = 1f;
     //public float _gravityFactorCancelJump = 1.6f;
 
-    //public float _groundCheckDistance = 0.4f;
+    public float _groundCheckDistance = 0.4f;
     //public float _groundCheckOffset = 1.0f;
     public Vector3 raycastOffset;
 
@@ -30,17 +30,19 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region API
-    public bool isGrounded()
+    public bool IsGrounded()
     {
         return _isGrounded;
     }
 
     public void jump()
     {
-        _animator.SetTrigger(jumpHash);
         //Ajoutez de la jump force � la v�locit� du joueur
         if (_isGrounded)
         {
+            _animator.SetTrigger(jumpHash);
+
+            events.OnJump -= jump;
             //_velocity += _jumpForce * Vector3.up;
             //_startJump = true;
         }
@@ -49,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     public void slide()
     {
         _animator.SetTrigger(slideHash);
+
+        events.OnSlide -= slide;
     }
 
     public void moveLeft()
@@ -120,6 +124,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance))
+            _isGrounded = true;
+        else
+            _isGrounded = false;
+
+
         Movements();
     }
 
@@ -136,6 +148,9 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.green;
         Gizmos.DrawRay(transform.position - Vector3.right * 2, Vector3.up * 2);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position + raycastOffset, Vector3.down * _groundCheckDistance);
     }
     #endregion
 }
