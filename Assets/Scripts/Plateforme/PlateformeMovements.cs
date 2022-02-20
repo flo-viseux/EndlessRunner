@@ -10,14 +10,14 @@ public class PlateformeMovements : MonoBehaviour
 
     private void Awake() {
         generation = GameObject.Find("Generation").GetComponent<Generation>();
-        speed = generation.speed;
+        speed = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        speed = generation.speed;
-        transform.position -= new Vector3 (0f, 0f, speed * Time.deltaTime);
+        speed = generation.currentSpeed;
+        transform.position -= new Vector3 (0f, 0f, speed);
     }
 
     public void Replace()

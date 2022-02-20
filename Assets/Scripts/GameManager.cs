@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,11 +10,20 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private PlayerInput playerInput;
     [SerializeField] private Generation generation;
 
-    //[SerializeField] private Canvas pressKey;
+    public bool playerAlive;
+    public int score;
+    public TMP_Text scoreText;
 
-    private void Start() 
+
+    //[SerializeField] private Canvas pressKey;
+    
+
+    private void Awake() 
     {
         generation = GameObject.Find("Generation").GetComponent<Generation>();
+        playerAlive = true;
+        score = 0;
+        scoreText.text = "" + score;
         //startAction = playerInput.actions.FindAction("StartGame");
         //pressKey.enabled = true;
     }
@@ -34,6 +44,26 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        generation.hasStarted = true;
+        generation.isPlaying = true;
+    }
+
+    public void Score()
+    {
+        if (playerAlive)
+            score = (int) (Time.time * (Time.time / 5));
+
+        scoreText.text = "" + score;
+    }
+
+    private void Update()
+    {
+        Score();
+
+        if (!playerAlive)
+        {
+            generation.isPlaying = false;
+            generation.speed = 0;
+        }
+            
     }
 }

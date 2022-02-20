@@ -20,8 +20,9 @@ public class Generation : MonoBehaviour
     #region Attributes
     public float intervalleDuration;
     public float speed;
+    public float currentSpeed;
 
-    public bool hasStarted;
+    public bool isPlaying;
     public bool walls;
     public bool stairs;
     #endregion
@@ -29,9 +30,11 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() 
     {
-        hasStarted = true;
+        isPlaying = true;
         walls = true;
         stairs = true;
+        speed = 0;
+        currentSpeed = 0;
         Obstacles.Add(Wall);
         Obstacles.Add(Nothing);
         Obstacles.Add(SemiWall);
@@ -42,31 +45,31 @@ public class Generation : MonoBehaviour
 
     private void Update() 
     {
-        if(speed == 0)
+        if(currentSpeed == 0)
         {
             intervalleDuration = 8f;
         }
-        else if(speed < 5 && speed != 0)
+        else if(currentSpeed < 0.01f)
         {
-            intervalleDuration = 0.5f;
+            intervalleDuration = 0.40f;
         }
-        else if(speed > 5f && speed < 8f)
-        {
-            intervalleDuration = 0.45f;
-        }
-        else if(speed > 8f && speed < 11f)
+        else if(currentSpeed < 0.018f && currentSpeed > 0.01f)
         {
             intervalleDuration = 0.36f;
         }
-        else if(speed > 11f)
+        else if(currentSpeed < 0.025f && currentSpeed > 0.018f)
         {
-            intervalleDuration = 0.25f;
+            intervalleDuration = 0.3f;
+        }
+        else if (currentSpeed > 0.025f)
+        {
+            intervalleDuration = 0.27f;
         }
 
-
-        if(speed < 11f && hasStarted == true)
+        if (speed < 11f && isPlaying == true)
         {
             speed = speed + 0.001f;
+            currentSpeed = speed * Time.deltaTime;
         }
 
         lastObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
@@ -170,8 +173,6 @@ public class Generation : MonoBehaviour
 
     public void CreateNewObstacleSides(GameObject lastObstacle, GameObject newObstacle, GameObject plateforme, Vector3 localPos)
     {
-        Debug.Log(lastObstacle.layer);
-
         int i = Random.Range(1, 3);
 
         if ((i == 2 || i == 3) && lastObstacle.layer == 7)
