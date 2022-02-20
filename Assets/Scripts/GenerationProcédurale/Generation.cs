@@ -12,9 +12,9 @@ public class Generation : MonoBehaviour
     [SerializeField] private GameObject Stairs; 
     [SerializeField] private GameObject Nothing;
     [SerializeField] private List<GameObject> Obstacles;
-    [SerializeField] private GameObject currentObstacleLeft;
-    [SerializeField] private GameObject currentObstacleCenter;
-    [SerializeField] private GameObject currentObstacleRight;
+    [SerializeField] private GameObject lastObstacleLeft;
+    [SerializeField] private GameObject lastObstacleCenter;
+    [SerializeField] private GameObject lastObstacleRight;
     #endregion
 
     #region Attributes
@@ -22,14 +22,18 @@ public class Generation : MonoBehaviour
     public float speed;
 
     public bool hasStarted;
+    public bool walls;
+    public bool stairs;
     #endregion
 
     // Start is called before the first frame update
     private void Awake() 
     {
         hasStarted = true;
-        Obstacles.Add(Nothing);
+        walls = true;
+        stairs = true;
         Obstacles.Add(Wall);
+        Obstacles.Add(Nothing);
         Obstacles.Add(SemiWall);
         Obstacles.Add(Stairs);
 
@@ -44,7 +48,7 @@ public class Generation : MonoBehaviour
         }
         else if(speed < 5 && speed != 0)
         {
-            intervalleDuration = 0.7f;
+            intervalleDuration = 0.5f;
         }
         else if(speed > 5f && speed < 8f)
         {
@@ -65,9 +69,9 @@ public class Generation : MonoBehaviour
             speed = speed + 0.001f;
         }
 
-        currentObstacleLeft = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
-        currentObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(2).gameObject;
-        currentObstacleRight = plateformes[plateformes.Count - 1].transform.GetChild(3).gameObject;
+        lastObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
+        lastObstacleLeft = plateformes[plateformes.Count - 1].transform.GetChild(2).gameObject;
+        lastObstacleRight = plateformes[plateformes.Count - 1].transform.GetChild(3).gameObject;
 
     }
 
@@ -82,75 +86,114 @@ public class Generation : MonoBehaviour
         newPlateforme.transform.position = plateformes[plateformes.Count - 2].transform.position + new Vector3(0f, 0f, 3f);
 
         GameObject newObstacleLeft = null;
-        GameObject newObstacleCenter = null;
+        GameObject newObstacleCenter = null; 
         GameObject newObstacleRight= null;
 
-        CreateNewObstacle(currentObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
-        CreateNewObstacle(currentObstacleCenter, newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
-        CreateNewObstacle(currentObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+        if(lastObstacleLeft.layer ==  7 && lastObstacleRight.layer == 7 && lastObstacleCenter.layer != 9)
+            CreateNewObstacleSides(lastObstacleCenter, newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
+        else
+            CreateNewObstacle(lastObstacleCenter, newObstacleCenter, newPlateforme, new Vector3(0f, 0f, 0f));
 
-        if(newObstacleLeft == Obstacles[1] && newObstacleCenter == Obstacles[1] && newObstacleRight == Obstacles[1])
+        LayerMask currentCenterObstacleLayer = newPlateforme.transform.GetChild(1).gameObject.layer;
+
+        if (currentCenterObstacleLayer.value == 7)
         {
-            newObstacleRight = Obstacles[2];
+            if (lastObstacleLeft.layer != 9 && lastObstacleRight.layer != 9)
+            {
+                CreateNewObstacleSides(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+                CreateNewObstacleSides(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+            }
+            else if(lastObstacleLeft.layer != 9 && lastObstacleRight.layer == 9)
+            {
+                CreateNewObstacleSides(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+                CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+
+            }
+            else if(lastObstacleLeft.layer == 9 && lastObstacleRight.layer != 9)
+            {
+                CreateNewObstacle(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+                CreateNewObstacleSides(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+            }
+            else if(lastObstacleLeft.layer == 9 && lastObstacleRight.layer == 9)
+            {
+                CreateNewObstacle(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+                CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+            }
+        }
+        else
+        {
+            CreateNewObstacle(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+            CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
         }
 
         StartCoroutine(GenerationPlateforme());
     }
 
-    // public void FindCurrentObstacle(GameObject currentObstacle, int index)
-    // {
-    //     if(currentObstacle.layer == 7)
-    //     {
-    //         index = 0;
-    //     }
-        
-    //     if(currentObstacle.layer == 8)
-    //     {
-    //         index = 1;
-    //     }
-        
-    //     if(currentObstacle.layer == 9)
-    //     {
-    //         index = 2;
-    //     }
-        
-    //     if(currentObstacle.layer == 10)
-    //     {
-    //         index = 3;
-    //     }
-    // }
-
-    public void CreateNewObstacle(GameObject currentObstacle, GameObject newObstacle, GameObject plateforme, Vector3 localPos)
+    public void CreateNewObstacle(GameObject lastObstacle, GameObject newObstacle, GameObject plateforme, Vector3 localPos)
     {
-        if(currentObstacle.layer == 7)
+        if(lastObstacle.layer == 7)
         {
-            int numeroObstacle = Random.Range(0, Obstacles.Count);
+            int i = Random.Range(0, 1);
 
-            if(numeroObstacle > 1)
-                numeroObstacle = 0;
+            if(i == 0 && walls)
+            {
+                i = 1;
+                walls = !walls;
+            }
+            else if(i == 0 && !walls)
+            {
+                walls = !walls;
+            }
 
-            newObstacle = Instantiate(Obstacles[numeroObstacle], plateforme.transform);
+            newObstacle = Instantiate(Obstacles[i], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
         
-        if(currentObstacle.layer == 8)
+        if(lastObstacle.layer == 8)
         {
             newObstacle = Instantiate(Obstacles[Random.Range(0, Obstacles.Count)], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
         
-        if(currentObstacle.layer == 9)
+        if(lastObstacle.layer == 9)
         {
-            newObstacle = Instantiate(Obstacles[1], plateforme.transform);
-            newObstacle.transform.localPosition = localPos;
-        }
-        
-        if(currentObstacle.layer == 10)
-        {
-            int numeroObstacle = Random.Range(0, Obstacles.Count);
-                
             newObstacle = Instantiate(Obstacles[0], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
+        
+        if(lastObstacle.layer == 10)
+        {       
+            newObstacle = Instantiate(Obstacles[1], plateforme.transform);
+            newObstacle.transform.localPosition = localPos;
+        }
+    }
+
+    public void CreateNewObstacleSides(GameObject lastObstacle, GameObject newObstacle, GameObject plateforme, Vector3 localPos)
+    {
+        Debug.Log(lastObstacle.layer);
+
+        int i = Random.Range(1, 3);
+
+        if ((i == 2 || i == 3) && lastObstacle.layer == 7)
+        {
+            i = 1;
+        }
+        else if ((i == 2 || i ==3) && stairs && lastObstacle.layer != 7)
+        {
+            i = 1;
+            stairs = !stairs;
+        }
+        else if(i == 2 && !stairs)
+        {
+            i = 3;
+            stairs = !stairs;
+        }
+        
+            
+
+
+        newObstacle = Instantiate(Obstacles[i], plateforme.transform);
+        newObstacle.transform.localPosition = localPos;
+
     }
 }
