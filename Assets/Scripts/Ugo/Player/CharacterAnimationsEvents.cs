@@ -8,6 +8,8 @@ public class CharacterAnimationsEvents : MonoBehaviour
     public event Action OnSlide;
     public event Action OnFootStep;
     public event Action OnDeath;
+    public event Action OnLeft;
+    public event Action OnRight;
 
     public void jump()
     {
@@ -22,6 +24,16 @@ public class CharacterAnimationsEvents : MonoBehaviour
     public void FootStep()
     {
         OnFootStep?.Invoke();
+    }
+
+    public void Left()
+    {
+        OnLeft?.Invoke();
+    }
+
+    public void Right()
+    {
+        OnRight?.Invoke();
     }
 
     public void Death()

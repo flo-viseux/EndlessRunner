@@ -14,12 +14,15 @@ public class GameManager : MonoBehaviour
     public int score;
     public TMP_Text scoreText;
 
+    public Vector3 gravity;
+
 
     //[SerializeField] private Canvas pressKey;
     
 
     private void Awake() 
     {
+        Physics.gravity = gravity;
         generation = GameObject.Find("Generation").GetComponent<Generation>();
         playerAlive = true;
         score = 0;
