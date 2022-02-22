@@ -23,7 +23,7 @@ Material:
     - _Cull: 1
     m_Colors:
     - _BoxDims: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
-    - _Emission1: {r: 0.9470446, g: 0.23586768, b: 0.23586768, a: 1}
-    - _Emission2: {r: 0.9784739, g: 0, b: 2.5200002, a: 1}
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Emission1: {r: 2.447059, g: 0.015686275, b: 0, a: 1}
+    - _Emission2: {r: 1.4980392, g: 0.007843138, b: 0, a: 1}
   m_BuildTextureStacks: []
