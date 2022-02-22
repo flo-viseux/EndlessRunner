@@ -12,6 +12,7 @@ public class Generation : MonoBehaviour
     [SerializeField] private GameObject Stairs; 
     [SerializeField] private GameObject Nothing;
     [SerializeField] private List<GameObject> Obstacles;
+    [SerializeField] private List<GameObject> Collectibles;
     [SerializeField] private GameObject lastObstacleLeft;
     [SerializeField] private GameObject lastObstacleCenter;
     [SerializeField] private GameObject lastObstacleRight;
