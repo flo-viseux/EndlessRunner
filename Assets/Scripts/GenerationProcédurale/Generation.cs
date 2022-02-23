@@ -7,75 +7,106 @@ public class Generation : MonoBehaviour
     #region SerializedField
     public List<GameObject> plateformes;
     [SerializeField] private GameObject Plateforme;
+
+    [Header("Obstacles")]
     [SerializeField] private GameObject Wall;
     [SerializeField] private GameObject SemiWall;
     [SerializeField] private GameObject Stairs; 
     [SerializeField] private GameObject Nothing;
     [SerializeField] private List<GameObject> Obstacles;
-    [SerializeField] private List<GameObject> Collectibles;
     [SerializeField] private GameObject lastObstacleLeft;
     [SerializeField] private GameObject lastObstacleCenter;
     [SerializeField] private GameObject lastObstacleRight;
+
+    [Header("Collectibles")]
+    [SerializeField] private GameObject NoCoin;
+    [SerializeField] private GameObject TwoCoins;
+    [SerializeField] private GameObject ThreeCoins;
+    [SerializeField] private List<GameObject> Collectibles;
+
     #endregion
 
     #region Attributes
     public float intervalleDuration;
     public float speed;
-    public float currentSpeed;
 
     public bool isPlaying;
-    public bool walls;
-    public bool stairs;
+    public bool canCreateStairs;
+    public bool canCreateCoins;
+    public int initialCdStairs;
+    public int CdStairs;
+    public int initialCdCoins;
+    public int CdCoins;
     #endregion
 
     // Start is called before the first frame update
     private void Awake() 
     {
         isPlaying = true;
-        walls = true;
-        stairs = true;
+
+        canCreateStairs = false;
+        CdStairs = initialCdStairs;
+
+        canCreateCoins = false;
+        CdCoins = initialCdCoins;
+
         speed = 0;
-        currentSpeed = 0;
+
         Obstacles.Add(Wall);
         Obstacles.Add(Nothing);
         Obstacles.Add(SemiWall);
         Obstacles.Add(Stairs);
+
+        Collectibles.Add(NoCoin);
+        Collectibles.Add(TwoCoins);
+        Collectibles.Add(ThreeCoins);
 
         StartCoroutine(GenerationPlateforme());
     }
 
     private void Update() 
     {
-        if(currentSpeed == 0)
+        if(speed == 0)
         {
             intervalleDuration = 8f;
         }
-        else if(currentSpeed < 0.01f)
+        else if(speed < 3f)
         {
             intervalleDuration = 0.40f;
         }
-        else if(currentSpeed < 0.018f && currentSpeed > 0.01f)
+        else if(speed < 5.5f && speed > 3f)
         {
             intervalleDuration = 0.36f;
         }
-        else if(currentSpeed < 0.025f && currentSpeed > 0.018f)
+        else if(speed < 11f && speed > 5.5f)
         {
             intervalleDuration = 0.3f;
         }
-        else if (currentSpeed > 0.025f)
+        else if (speed > 11f)
         {
             intervalleDuration = 0.27f;
         }
 
         if (speed < 11f && isPlaying == true)
         {
-            speed = speed + 0.001f;
-            currentSpeed = speed * Time.deltaTime;
+            speed += 0.001f;
         }
 
         lastObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
         lastObstacleLeft = plateformes[plateformes.Count - 1].transform.GetChild(2).gameObject;
         lastObstacleRight = plateformes[plateformes.Count - 1].transform.GetChild(3).gameObject;
+
+        if(CdStairs <= 0)
+        {
+            canCreateStairs = !canCreateStairs;
+            CdStairs = initialCdStairs;
+        }
+
+        if (CdCoins <= 0)
+        {
+            canCreateCoins = !canCreateCoins;
+            CdCoins = initialCdCoins;
+        }
 
     }
 
@@ -130,6 +161,13 @@ public class Generation : MonoBehaviour
             CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
         }
 
+        if (canCreateCoins)
+        {
+            CreateCoins(newPlateforme.transform.GetChild(1).transform, newPlateforme.transform.GetChild(2).transform, newPlateforme.transform.GetChild(3).transform);
+        }
+
+            
+
         StartCoroutine(GenerationPlateforme());
     }
 
@@ -137,25 +175,26 @@ public class Generation : MonoBehaviour
     {
         if(lastObstacle.layer == 7)
         {
-            int i = Random.Range(0, 1);
-
-            if(i == 0 && walls)
-            {
-                i = 1;
-                walls = !walls;
-            }
-            else if(i == 0 && !walls)
-            {
-                walls = !walls;
-            }
-
-            newObstacle = Instantiate(Obstacles[i], plateforme.transform);
+            newObstacle = Instantiate(Obstacles[1], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
         
         if(lastObstacle.layer == 8)
         {
-            newObstacle = Instantiate(Obstacles[Random.Range(0, Obstacles.Count)], plateforme.transform);
+            if(!canCreateStairs)
+            {
+                newObstacle = Instantiate(Obstacles[Random.Range(0, Obstacles.Count)], plateforme.transform);
+            }
+            else
+            {
+                int i = Random.Range(0, Obstacles.Count);
+
+                if (i == 3)
+                    i = 1;
+
+                newObstacle = Instantiate(Obstacles[i], plateforme.transform);
+            }
+
             newObstacle.transform.localPosition = localPos;
         }
         
@@ -170,6 +209,9 @@ public class Generation : MonoBehaviour
             newObstacle = Instantiate(Obstacles[1], plateforme.transform);
             newObstacle.transform.localPosition = localPos;
         }
+
+        CdStairs -= 1;
+        CdCoins -= 1;
     }
 
     public void CreateNewObstacleSides(GameObject lastObstacle, GameObject newObstacle, GameObject plateforme, Vector3 localPos)
@@ -180,22 +222,56 @@ public class Generation : MonoBehaviour
         {
             i = 1;
         }
-        else if ((i == 2 || i ==3) && stairs && lastObstacle.layer != 7)
+        else if ((i == 2 || i ==3) && canCreateStairs && lastObstacle.layer != 7)
         {
             i = 1;
-            stairs = !stairs;
         }
-        else if(i == 2 && !stairs)
+        else if(i == 2 && !canCreateStairs)
         {
             i = 3;
-            stairs = !stairs;
         }
-        
-            
 
+        CdStairs -= 1;
+        CdCoins -= 1;
 
         newObstacle = Instantiate(Obstacles[i], plateforme.transform);
         newObstacle.transform.localPosition = localPos;
 
+    }
+
+    public void CreateCoins(Transform left, Transform center, Transform right)
+    {
+        int i = Random.Range(0, 3);
+        Debug.Log(i);
+        GameObject Coins = null;
+
+        if (i == 0)
+        {
+            if (left.gameObject.layer == 10)
+                Coins = Instantiate(Collectibles[2], left);
+            else
+                Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], left);
+
+
+            Coins.transform.localPosition = Vector3.zero;
+        }
+        else if (i == 1)
+        {
+            if (center.gameObject.layer == 10)
+                Coins = Instantiate(Collectibles[2], center);
+            else
+                Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], center);
+
+            Coins.transform.localPosition = Vector3.zero;
+        }
+        else if (i == 2)
+        {
+            if (right.gameObject.layer == 10)
+                Coins = Instantiate(Collectibles[2], right);
+            else
+                Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], right);
+
+            Coins.transform.localPosition = Vector3.zero;
+        }
     }
 }
