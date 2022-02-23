@@ -16,7 +16,7 @@ public class PlateformeMovements : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = generation.currentSpeed;
+        speed = generation.speed * Time.deltaTime;
         transform.position -= new Vector3 (0f, 0f, speed);
     }
 

@@ -17,14 +17,9 @@ public class PlayerMovement : MonoBehaviour
     int deathHash = Animator.StringToHash("death");
     public int currentCorridor = 1;
 
-    //public float _gravityFactorJumpDown = 1.4f;
-    //public float _gravityFactorJumpUp = 1f;
-    //public float _gravityFactorCancelJump = 1.6f;
-
     public float _groundCheckDistance = 0.4f;
-    //public float _groundCheckOffset = 1.0f;
     public Vector3 raycastOffset;
-
+    public Vector3 _jumpForce;
     //private Rigidbody _rigidBody;
     private bool _isGrounded = false;
     #endregion
@@ -43,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetTrigger(jumpHash);
 
             events.OnJump -= jump;
-            //_velocity += _jumpForce * Vector3.up;
+            GetComponent<Rigidbody>().AddForce(_jumpForce, ForceMode.Impulse);
             //_startJump = true;
         }
     }
@@ -51,6 +46,12 @@ public class PlayerMovement : MonoBehaviour
     public void slide()
     {
         _animator.SetTrigger(slideHash);
+
+        if (!_isGrounded)
+        {
+            GetComponent<Rigidbody>().AddForce( - _jumpForce, ForceMode.Impulse);
+            //_startJump = true;
+        }
 
         events.OnSlide -= slide;
     }
@@ -117,10 +118,6 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Unity methods
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
