@@ -6,8 +6,6 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     //[SerializeField] private GameObject Timeline;
-    //[SerializeField] private InputAction startAction;
-    //[SerializeField] private PlayerInput playerInput;
     [SerializeField] private Generation generation;
 
     public bool playerAlive;
@@ -27,8 +25,6 @@ public class GameManager : MonoBehaviour
         playerAlive = true;
         score = 0;
         scoreText.text = "" + score;
-        //startAction = playerInput.actions.FindAction("StartGame");
-        //pressKey.enabled = true;
     }
 
     /*public void OnStartGame()
@@ -42,9 +38,6 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator StartGame()
     {
-        //Timeline.SetActive(true);
-        //pressKey.enabled = false;
-
         yield return new WaitForSeconds(3f);
 
         generation.isPlaying = true;
