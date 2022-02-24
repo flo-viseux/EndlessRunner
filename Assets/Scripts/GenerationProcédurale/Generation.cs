@@ -42,7 +42,7 @@ public class Generation : MonoBehaviour
     // Start is called before the first frame update
     private void Awake() 
     {
-        isPlaying = true;
+        isPlaying = false;
 
         canCreateStairs = false;
         CdStairs = initialCdStairs;
@@ -66,7 +66,18 @@ public class Generation : MonoBehaviour
 
     private void Update() 
     {
-        if(speed == 0)
+        if(Input.anyKeyDown && isPlaying == false)
+        {
+            isPlaying = true;
+            speed = 3;
+        }
+
+        if (speed < 11f && isPlaying == true)
+        {
+            speed += 0.001f;
+        }
+
+        if (speed == 0)
         {
             intervalleDuration = 8f;
         }
@@ -87,10 +98,7 @@ public class Generation : MonoBehaviour
             intervalleDuration = 0.27f;
         }
 
-        if (speed < 11f && isPlaying == true)
-        {
-            speed += 0.001f;
-        }
+        
 
         lastObstacleCenter = plateformes[plateformes.Count - 1].transform.GetChild(1).gameObject;
         lastObstacleLeft = plateformes[plateformes.Count - 1].transform.GetChild(2).gameObject;
