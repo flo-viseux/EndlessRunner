@@ -155,6 +155,27 @@ public class Generation : MonoBehaviour
                 CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
             }
         }
+        else if(currentCenterObstacleLayer.value != 7 && lastObstacleCenter.layer == 7 && lastObstacleLeft.layer != 9 && lastObstacleRight.layer != 9)
+        {
+            CreateNewObstacleSides(lastObstacleCenter, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+            CreateNewObstacleSides(lastObstacleCenter, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+
+        }
+        else if(currentCenterObstacleLayer.value != 7 && lastObstacleCenter.layer == 7 && lastObstacleLeft.layer == 9 && lastObstacleRight.layer != 9)
+        {
+            CreateNewObstacle(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+            CreateNewObstacleSides(lastObstacleCenter, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+        }
+        else if (currentCenterObstacleLayer.value != 7 && lastObstacleCenter.layer == 7 && lastObstacleLeft.layer != 9 && lastObstacleRight.layer == 9)
+        {
+            CreateNewObstacleSides(lastObstacleCenter, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+            CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+        }
+        else if (currentCenterObstacleLayer.value != 7 && lastObstacleCenter.layer == 7 && lastObstacleLeft.layer == 9 && lastObstacleRight.layer == 9)
+        {
+            CreateNewObstacle(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
+            CreateNewObstacle(lastObstacleRight, newObstacleRight, newPlateforme, new Vector3(2f, 0f, 0f));
+        }
         else
         {
             CreateNewObstacle(lastObstacleLeft, newObstacleLeft, newPlateforme, new Vector3(-2f, 0f, 0f));
@@ -242,7 +263,6 @@ public class Generation : MonoBehaviour
     public void CreateCoins(Transform left, Transform center, Transform right)
     {
         int i = Random.Range(0, 3);
-        Debug.Log(i);
         GameObject Coins = null;
 
         if (i == 0)
