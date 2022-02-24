@@ -7,55 +7,52 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Serialized fields
     [SerializeField] private CharacterAnimationsEvents events = null;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private Collider body;
+    [SerializeField] private Collider legs;
     #endregion
-    
-    #region Attributes
-    public Transform[] corridorPosition;
-    public Animator _animator;
-    private int jumpHash = Animator.StringToHash("jump");
-    int slideHash = Animator.StringToHash("slide");
-    int deathHash = Animator.StringToHash("death");
-    public int currentCorridor = 1;
 
+    #region Attributes
+    private int jumpHash = Animator.StringToHash("jump");
+    private int slideHash = Animator.StringToHash("slide");
+    private int deathHash = Animator.StringToHash("death");
+
+    public int currentCorridor = 1;
+    
     public float _groundCheckDistance = 0.4f;
     public Vector3 raycastOffset;
     public Vector3 raycastRightOffset;
     public Vector3 raycastLeftOffset;
     public Vector3 _jumpForce;
-    //private Rigidbody _rigidBody;
-    private bool _isGrounded = false;
+    public bool _isGrounded = false;
     #endregion
 
     #region API
-    public bool IsGrounded()
-    {
-        return _isGrounded;
-    }
-
-    public void jump()
+    public void Jump()
     {
         //Ajoutez de la jump force � la v�locit� du joueur
         if (_isGrounded)
         {
             _animator.SetTrigger(jumpHash);
 
-            events.OnJump -= jump;
+            legs.enabled = false;
             GetComponent<Rigidbody>().AddForce(_jumpForce, ForceMode.Impulse);
-            //_startJump = true;
+
+            events.OnJump -= Jump;
         }
     }
 
-    public void slide()
+    public void Slide()
     {
         _animator.SetTrigger(slideHash);
 
         if (!_isGrounded)
         {
             GetComponent<Rigidbody>().AddForce( - _jumpForce, ForceMode.Impulse);
-            //_startJump = true;
         }
 
-        events.OnSlide -= slide;
+        body.enabled = false;
+        //events.OnSlide -= Slide;
     }
 
     public void moveLeft()
@@ -68,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         currentCorridor -= 1;
-        transform.position -= new Vector3(2f, 0f, 0f);
+        transform.position -= new Vector3(3f, 0f, 0f);
     }
 
     public void moveRight()
@@ -82,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             currentCorridor += 1;
-            transform.position += new Vector3(2f, 0f, 0f);
+            transform.position += new Vector3(3f, 0f, 0f);
         }
     }
 
@@ -106,12 +103,12 @@ public class PlayerMovement : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            jump();
+            Jump();
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            slide();
+            Slide();
         }
 
         //transform.position = corridorPosition[currentCorridor].position;
@@ -136,8 +133,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Awake() 
     {
-        events.OnJump += jump;
-        events.OnSlide += slide;
+        events.OnJump += Jump;
+        events.OnSlide += Slide;
     }
 
     void OnDrawGizmos()

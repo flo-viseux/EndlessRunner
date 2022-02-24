@@ -6,4 +6,5 @@ public class JumpState : StateMachineBehaviour
     {
         animator.GetComponent<CharacterAnimationsEvents>().jump();
     }
+
 }

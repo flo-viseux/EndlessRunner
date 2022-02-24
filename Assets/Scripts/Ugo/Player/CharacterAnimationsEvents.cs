@@ -16,10 +16,12 @@ public class CharacterAnimationsEvents : MonoBehaviour
         OnJump?.Invoke();
     }
 
-    public void Slide()
+
+    public void slide()
     {
         OnSlide?.Invoke();
     }
+
 
     public void FootStep()
     {
