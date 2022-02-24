@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void Score()
     {
-        if (playerAlive)
+        if (playerAlive && generation.isPlaying == true)
             score = (int) (Time.time * (Time.time / 5));
 
         scoreText.text = "" + score;

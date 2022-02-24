@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float _groundCheckDistance = 0.4f;
     public Vector3 raycastOffset;
+    public Vector3 raycastRightOffset;
+    public Vector3 raycastLeftOffset;
     public Vector3 _jumpForce;
     //private Rigidbody _rigidBody;
     private bool _isGrounded = false;
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
         // Debug.Log("moveLeft");
-        if (currentCorridor == 0 || Physics.Raycast(transform.position - (Vector3.right * 2), Vector3.up, out hit, 2))
+        if (currentCorridor == 0 || Physics.Raycast(transform.position + raycastLeftOffset, Vector3.up, out hit, 2))
         {
             return;
         }
@@ -73,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (currentCorridor == 2 || Physics.Raycast(transform.position + (Vector3.right * 2), Vector3.up, out hit, 2))
+        if (currentCorridor == 2 || Physics.Raycast(transform.position + raycastRightOffset, Vector3.up, out hit, 2))
         {
             return;
         }
@@ -141,10 +143,10 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position + Vector3.right * 2, Vector3.up * 2);
+        Gizmos.DrawRay(transform.position + raycastRightOffset, Vector3.up * 2);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position - Vector3.right * 2, Vector3.up * 2);
+        Gizmos.DrawRay(transform.position + raycastLeftOffset, Vector3.up * 2);
 
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position + raycastOffset, Vector3.down * _groundCheckDistance);
