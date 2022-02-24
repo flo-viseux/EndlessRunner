@@ -22,8 +22,8 @@ Material:
     m_Floats:
     - _Cull: 1
     m_Colors:
-    - _BoxDims: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _Emission1: {r: 2.447059, g: 0.015686275, b: 0, a: 1}
-    - _Emission2: {r: 1.4980392, g: 0.007843138, b: 0, a: 1}
+    - _BoxDims: {r: 4, g: 4, b: 1, a: 1}
+    - _Color: {r: 0.028301895, g: 0.028301895, b: 0.028301895, a: 1}
+    - _Emission1: {r: 0.4103815, g: 0.9221513, b: 0.45866165, a: 1}
+    - _Emission2: {r: 0.4125427, g: 0.92158204, b: 0.45641106, a: 1}
   m_BuildTextureStacks: []
