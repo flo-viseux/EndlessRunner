@@ -47,4 +47,4 @@ MonoBehaviour:
   playerAlive: 0
   score: 0
   scoreText: {fileID: 0}
-  gravity: {x: 0, y: -15, z: 0}
+  gravity: {x: 0, y: -25, z: 0}

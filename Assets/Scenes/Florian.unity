@@ -4006,7 +4006,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: _jumpForce.y
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: corridorPosition.Array.data[0]
