@@ -3,9 +3,19 @@ using System;
 
 public class CharacterAnimationsEvents : MonoBehaviour
 {
+    #region Private 
+    private PlayerMovement movement = null;
+
+    private void Awake()
+    {
+        movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
+    }
+    #endregion
     #region API
     public event Action OnJump;
+    public event Action OnEndJump;
     public event Action OnSlide;
+    public event Action OnEndSlide;
     public event Action OnFootStep;
     public event Action OnDeath;
     public event Action OnLeft;
@@ -16,10 +26,21 @@ public class CharacterAnimationsEvents : MonoBehaviour
         OnJump?.Invoke();
     }
 
+    public void endJump()
+    {
+        OnEndJump?.Invoke();
+        movement.EndJump();
+    }
 
     public void slide()
     {
         OnSlide?.Invoke();
+    }
+
+    public void endSlide()
+    {
+        OnEndSlide?.Invoke();
+        movement.EndSlide();
     }
 
 

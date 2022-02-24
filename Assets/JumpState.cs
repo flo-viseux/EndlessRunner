@@ -7,4 +7,9 @@ public class JumpState : StateMachineBehaviour
         animator.GetComponent<CharacterAnimationsEvents>().jump();
     }
 
+    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        animator.GetComponent<CharacterAnimationsEvents>().endJump();
+    }
+
 }

@@ -7,4 +7,8 @@ public class SlideState : StateMachineBehaviour
         animator.GetComponent<CharacterAnimationsEvents>().slide();
     }
 
+    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+    {
+        animator.GetComponent<CharacterAnimationsEvents>().endSlide();
+    }
 }

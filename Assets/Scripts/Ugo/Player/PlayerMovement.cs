@@ -42,6 +42,13 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void EndJump()
+    {
+            legs.enabled = true;
+
+            events.OnEndJump -= EndJump;
+    }
+
     public void Slide()
     {
         _animator.SetTrigger(slideHash);
@@ -52,7 +59,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         body.enabled = false;
-        //events.OnSlide -= Slide;
+        events.OnSlide -= Slide;
+    }
+
+    public void EndSlide()
+    {
+        body.enabled = true;
+
+        events.OnEndSlide -= EndSlide;
     }
 
     public void moveLeft()
@@ -135,6 +149,8 @@ public class PlayerMovement : MonoBehaviour
     {
         events.OnJump += Jump;
         events.OnSlide += Slide;
+        events.OnEndJump += EndJump;
+        events.OnEndSlide += EndSlide;
     }
 
     void OnDrawGizmos()
