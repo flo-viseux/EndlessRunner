@@ -2409,6 +2409,11 @@ MonoBehaviour:
   score: 0
   scoreText: {fileID: 1103725610}
   playerAlive: 0
+--- !u!95 &1505807006 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4962301114621218180, guid: fd8380acfc83470478f5a95fc3c25f66, type: 3}
+  m_PrefabInstance: {fileID: 4962301115812624058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1596375934 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 242504173171294276, guid: 3625764d411d28a45adf01ff23fae6f5, type: 3}
@@ -2597,6 +2602,24 @@ Transform:
   m_Father: {fileID: 733514430}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1964912673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4962301115735684408, guid: fd8380acfc83470478f5a95fc3c25f66, type: 3}
+  m_PrefabInstance: {fileID: 4962301115812624058}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1964912675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1964912673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ef7ed28acf0b64580d7dd47c4adbb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 1505807006}
 --- !u!1 &2014562264
 GameObject:
   m_ObjectHideFlags: 0

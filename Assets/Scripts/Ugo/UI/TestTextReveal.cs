@@ -7,7 +7,7 @@ public class TestTextReveal : MonoBehaviour
 {
    public TMP_Text text;
 
-   void Start () 
+   void Start() 
     {
         StartCoroutine(RevealText()); 
 	}
