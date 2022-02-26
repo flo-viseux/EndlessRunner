@@ -7,9 +7,11 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Serialized fields
     [SerializeField] private CharacterAnimationsEvents events = null;
+    [SerializeField] private GameManager gameManager = null;
     [SerializeField] private Animator _animator;
     [SerializeField] private Collider body;
     [SerializeField] private Collider legs;
+    [SerializeField] private Material dissolve;
     #endregion
 
     #region Attributes
@@ -25,6 +27,10 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 raycastLeftOffset;
     public Vector3 _jumpForce;
     public bool _isGrounded = false;
+
+
+    public bool alive;
+    public float lerpTime;
     #endregion
 
     #region API
@@ -97,9 +103,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnDeath()
+    public void Death()
     {
-        _animator.SetTrigger(deathHash);
+        dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(0f, 1f, 1 * Time.deltaTime));
+        alive = false;
+        gameManager.EndGame();
     }
 
     public void Movements()
@@ -143,14 +151,29 @@ public class PlayerMovement : MonoBehaviour
 
 
         Movements();
+
+        if(alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") > 0)
+            dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 0f, lerpTime * Time.deltaTime));
+
+        if(!alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") < 1)
+            dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 1f, lerpTime * Time.deltaTime));
     }
 
     public void Awake() 
     {
+        alive = true;
+        dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", 1f);
+
         events.OnJump += Jump;
         events.OnSlide += Slide;
         events.OnEndJump += EndJump;
         events.OnEndSlide += EndSlide;
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start() {
+        //dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(1f, 0f, 20 * Time.deltaTime));
     }
 
     void OnDrawGizmos()
@@ -163,6 +186,13 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position + raycastOffset, Vector3.down * _groundCheckDistance);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Death")
+        {
+            Death();
+        }
     }
     #endregion
 }

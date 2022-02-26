@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
         scoreText.text = "" + score;
     }
 
+    
+    
     /*public void OnStartGame()
     {
         if(Timeline.activeInHierarchy == false)
@@ -41,6 +43,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
 
         generation.isPlaying = true;
+    }
+
+    public void EndGame()
+    {
+        playerAlive = false;
     }
 
     public void Score()
