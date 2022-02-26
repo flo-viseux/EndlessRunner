@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text scoreText;
 
     public Vector3 gravity;
-
+    public GameObject EndPanel;
 
     //[SerializeField] private Canvas pressKey;
     
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
         playerAlive = true;
         score = 0;
         scoreText.text = "" + score;
+        EndPanel.SetActive(false);
     }
 
     
@@ -48,6 +49,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         playerAlive = false;
+        EndPanel.SetActive(true);
     }
 
     public void Score()
