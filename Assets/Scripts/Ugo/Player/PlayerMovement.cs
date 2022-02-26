@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Death()
     {
+        _animator.SetTrigger(deathHash);
         dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(0f, 1f, 1 * Time.deltaTime));
         alive = false;
         gameManager.EndGame();

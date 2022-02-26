@@ -9,7 +9,7 @@ public class TestTextReveal : MonoBehaviour
 
    void Start() 
     {
-        StartCoroutine(RevealText()); 
+        StartCoroutine(RevealText());
 	}
 
     IEnumerator RevealText() 
