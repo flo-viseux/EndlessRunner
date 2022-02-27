@@ -118,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
         dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(0f, 1f, 1 * Time.deltaTime));
         alive = false;
         gameManager.EndGame();
+        events.OnDeath -= Death;
     }
 
     public void Movements()
@@ -202,6 +203,7 @@ public class PlayerMovement : MonoBehaviour
         currentCorridor = 1;
         events.OnEndJump += EndJump;
         events.OnEndSlide += EndSlide;
+        events.OnDeath += Death;
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
@@ -222,11 +224,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if(other.gameObject.tag == "Death" && other.gameObject.layer == 10 && !_isJumping)
         {
-            Death();
+            events.Death();
         }
         if(other.gameObject.tag == "Death" && other.gameObject.layer != 10)
         {
-            Death();
+            events.Death();
         }
 
         
