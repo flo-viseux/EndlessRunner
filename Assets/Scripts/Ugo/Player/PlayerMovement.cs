@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     #region Serialized fields
     [SerializeField] private CharacterAnimationsEvents events = null;
     [SerializeField] private GameManager gameManager = null;
-    [SerializeField] private Animator _animator;
     [SerializeField] private Collider body;
     [SerializeField] private Collider legs;
     [SerializeField] private Material dissolve;
@@ -16,13 +15,18 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Attributes
+    public Animator _animator;
     private int jumpHash = Animator.StringToHash("jump");
     private int slideHash = Animator.StringToHash("slide");
+    public int playHash = Animator.StringToHash("play");
+    private int groundHash = Animator.StringToHash("ground");
 
     public int currentCorridor = 1;
     
     public float _groundCheckDistance = 0.4f;
     public Vector3 raycastOffset;
+    public Vector3 halfExtentGround;
+    public Vector3 halfExtentsObstacles;
     public Vector3 raycastRightOffset;
     public Vector3 raycastLeftOffset;
     public Vector3 _jumpForce;
@@ -53,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void EndJump()
     {
-            legs.enabled = true;
+        legs.enabled = true;
         _isJumping = false;
         events.OnEndJump -= EndJump;
     }
@@ -80,22 +84,22 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveLeft()
     {
-        RaycastHit hit;
-        // Debug.Log("moveLeft");
-        if (currentCorridor == 0 || Physics.Raycast(transform.position + raycastLeftOffset, Vector3.up, out hit, 2))
+        if (currentCorridor == 0)
         {
             return;
         }
-
-        currentCorridor -= 1;
-        transform.position -= new Vector3(3f, 0f, 0f);
+        else
+        {
+            currentCorridor -= 1;
+            transform.position -= new Vector3(3f, 0f, 0f);
+        }
+        
     }
 
     public void moveRight()
     {
-        RaycastHit hit;
-
-        if (currentCorridor == 2 || Physics.Raycast(transform.position + raycastRightOffset, Vector3.up, out hit, 2))
+        
+        if (currentCorridor == 2)
         {
             return;
         }
@@ -115,12 +119,20 @@ public class PlayerMovement : MonoBehaviour
 
     public void Movements()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        RaycastHit hitRight;
+        bool right = (Physics.BoxCast(transform.position + raycastRightOffset, halfExtentsObstacles, transform.right, out hitRight, Quaternion.identity, _groundCheckDistance));
+        if(right)
+            Debug.Log(hitRight.collider.name);
+
+        RaycastHit hitLeft;
+        bool left = (Physics.BoxCast(transform.position + raycastLeftOffset, halfExtentsObstacles, -transform.right, out hitLeft, Quaternion.identity, _groundCheckDistance));
+
+        if (Input.GetKeyDown(KeyCode.D) && !right)
         {
             moveRight();
         }
             
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && !left)
         {
             moveLeft();
         }
@@ -146,15 +158,17 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if ((Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance, rampes[0]) 
-            || (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance, rampes[1])) 
-            || (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance, rampes[2]))))
+        if ((Physics.BoxCast(transform.position + raycastOffset, halfExtentGround, - transform.up, out hit, Quaternion.identity,_groundCheckDistance, rampes[0])) 
+            || (Physics.BoxCast(transform.position + raycastOffset, halfExtentGround, -transform.up, out hit, Quaternion.identity, _groundCheckDistance, rampes[1]))
+            || (Physics.BoxCast(transform.position + raycastOffset, halfExtentGround, -transform.up, out hit, Quaternion.identity, _groundCheckDistance, rampes[2])))
         {
             _isGrounded = true;
+            _animator.SetBool(groundHash, true);
             legs.enabled = true;
         }   
         else
         {
+            _animator.SetBool(groundHash, false);
             _isGrounded = false;
         }
 
@@ -176,7 +190,8 @@ public class PlayerMovement : MonoBehaviour
 
         events.OnJump += Jump;
         events.OnSlide += Slide;
-        //events.OnEndJump += EndJump;
+        currentCorridor = 1;
+        events.OnEndJump += EndJump;
         events.OnEndSlide += EndSlide;
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -190,13 +205,13 @@ public class PlayerMovement : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawRay(transform.position + raycastRightOffset, Vector3.up * 2);
+        Gizmos.DrawWireCube((transform.position + raycastRightOffset + transform.right) * _groundCheckDistance, halfExtentsObstacles);
 
         Gizmos.color = Color.green;
-        Gizmos.DrawRay(transform.position + raycastLeftOffset, Vector3.up * 2);
+        Gizmos.DrawWireCube((transform.position + raycastLeftOffset - transform.right) * _groundCheckDistance, halfExtentsObstacles);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + raycastOffset, Vector3.down * _groundCheckDistance);
+        Gizmos.DrawWireCube((transform.position + raycastOffset - transform.up) * _groundCheckDistance , halfExtentGround);
     }
 
     private void OnTriggerEnter(Collider other) 

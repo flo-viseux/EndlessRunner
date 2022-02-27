@@ -66,12 +66,6 @@ public class Generation : MonoBehaviour
 
     private void Update() 
     {
-        if(Input.anyKeyDown && isPlaying == false)
-        {
-            isPlaying = true;
-            speed = 3;
-        }
-
         if (speed < 11f && isPlaying == true)
         {
             speed += 0.001f;

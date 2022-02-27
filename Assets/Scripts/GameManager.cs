@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     //[SerializeField] private GameObject Timeline;
     [SerializeField] private Generation generation;
+    [SerializeField] private PlayerMovement movement;
 
     public bool playerAlive;
     public int score;
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     {
         Physics.gravity = gravity;
         generation = GameObject.Find("Generation").GetComponent<Generation>();
+        movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         playerAlive = true;
         score = 0;
         scoreText.text = "" + score;
@@ -29,14 +31,25 @@ public class GameManager : MonoBehaviour
         EndPanel.SetActive(false);
     }
     
-    /*public void OnStartGame()
+    public void OnStartGame()
     {
-        if(Timeline.activeInHierarchy == false)
+
+        if (Input.anyKeyDown && generation.isPlaying == false && movement.alive == true)
+        {
+            if(playerAlive)
+            {
+                startPanel.SetActive(false);
+                generation.isPlaying = true;
+                generation.speed = 3f;
+                movement._animator.SetTrigger(movement.playHash);
+            }
+        }
+        /*if(Timeline.activeInHierarchy == false)
         {
             StartCoroutine(StartGame());
-        }
-            
-    }*/
+        }*/
+
+    }
 
     public IEnumerator StartGame()
     {
@@ -61,6 +74,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        OnStartGame();
+
         Score();
 
         if (!playerAlive)
@@ -69,10 +84,7 @@ public class GameManager : MonoBehaviour
             generation.speed = 0;
         }
 
-        if(Input.anyKeyDown && playerAlive)
-        {
-            startPanel.SetActive(false);
-        }
+        
             
     }
 }

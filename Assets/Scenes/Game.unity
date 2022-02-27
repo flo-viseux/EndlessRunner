@@ -1352,14 +1352,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: raycastOffset.y
-      value: 0.2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastOffset.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: rampes.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: halfExtentGround.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: halfExtentGround.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: halfExtentGround.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastLeftOffset.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastLeftOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastLeftOffset.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: _groundCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastRightOffset.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastRightOffset.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastRightOffset.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: halfExtentsObstacles.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: halfExtentsObstacles.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: halfExtentsObstacles.z
       value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
