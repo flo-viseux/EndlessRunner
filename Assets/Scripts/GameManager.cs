@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
     public bool playerAlive;
     public int score;
     public TMP_Text scoreText;
-
+    public GameObject startPanel;
     public Vector3 gravity;
-
+    public GameObject EndPanel;
 
     //[SerializeField] private Canvas pressKey;
     
@@ -25,9 +25,9 @@ public class GameManager : MonoBehaviour
         playerAlive = true;
         score = 0;
         scoreText.text = "" + score;
+        startPanel.SetActive(true);
+        EndPanel.SetActive(false);
     }
-
-    
     
     /*public void OnStartGame()
     {
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public void EndGame()
     {
         playerAlive = false;
+        EndPanel.SetActive(true);
     }
 
     public void Score()
@@ -66,6 +67,11 @@ public class GameManager : MonoBehaviour
         {
             generation.isPlaying = false;
             generation.speed = 0;
+        }
+
+        if(Input.anyKeyDown)
+        {
+            startPanel.SetActive(false);
         }
             
     }
