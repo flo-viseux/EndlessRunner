@@ -148,8 +148,8 @@ public class PlayerMovement : MonoBehaviour
         else
             _isGrounded = false;
 
-
-        Movements();
+        if(alive)
+            Movements();
 
         if(alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") > 0)
             dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 0f, lerpTime * Time.deltaTime));

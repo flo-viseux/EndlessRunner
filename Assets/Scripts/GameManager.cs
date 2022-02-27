@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
             generation.speed = 0;
         }
 
-        if(Input.anyKeyDown)
+        if(Input.anyKeyDown && playerAlive)
         {
             startPanel.SetActive(false);
         }
