@@ -454,10 +454,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Running_Particles
       objectReference: {fileID: 0}
-    - target: {fileID: 1971493842536664, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4296626487239860, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -500,22 +496,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4296626487239860, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198667679347108662, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198747136884420384, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198983755821366766, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 264805762071724424, guid: 058c6c6f7bee2fc45a91fbdb528a9035, type: 3}
-      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
