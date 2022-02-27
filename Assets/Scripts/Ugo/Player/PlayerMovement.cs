@@ -172,10 +172,6 @@ public class PlayerMovement : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void Start() {
-        //dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(1f, 0f, 20 * Time.deltaTime));
-    }
-
     void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
