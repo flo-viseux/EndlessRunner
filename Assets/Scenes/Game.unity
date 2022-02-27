@@ -331,6 +331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scoring UI In-Game
       objectReference: {fileID: 0}
+    - target: {fileID: 3771299874275139638, guid: 80a028ab720e104448a148a007cf68c7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80a028ab720e104448a148a007cf68c7, type: 3}
 --- !u!1001 &352798912
@@ -430,7 +434,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4962301115454596935, guid: fd8380acfc83470478f5a95fc3c25f66, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8380acfc83470478f5a95fc3c25f66, type: 3}
@@ -1633,6 +1637,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Inventory
       objectReference: {fileID: 0}
+    - target: {fileID: 242504173171294279, guid: 3625764d411d28a45adf01ff23fae6f5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3625764d411d28a45adf01ff23fae6f5, type: 3}
 --- !u!1 &1879824735
@@ -1650,7 +1658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1879824736
 Transform:
   m_ObjectHideFlags: 0
@@ -1673,6 +1681,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 361151199}
     m_Modifications:
+    - target: {fileID: 851218948549569785, guid: eb4d6570b6d2ada4eb545ca4e306eca5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 228534e0ab12b7744b7b71e8ef564249, type: 3}
     - target: {fileID: 851218949655231076, guid: eb4d6570b6d2ada4eb545ca4e306eca5, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1760,6 +1772,10 @@ PrefabInstance:
     - target: {fileID: 851218949655231079, guid: eb4d6570b6d2ada4eb545ca4e306eca5, type: 3}
       propertyPath: m_Name
       value: Coins UI In-Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 851218949655231079, guid: eb4d6570b6d2ada4eb545ca4e306eca5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb4d6570b6d2ada4eb545ca4e306eca5, type: 3}
@@ -1960,6 +1976,10 @@ PrefabInstance:
     - target: {fileID: 6499770379584631209, guid: 84be42d40e0e37e4596a106f07880ffe, type: 3}
       propertyPath: m_Name
       value: StartPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6499770379584631209, guid: 84be42d40e0e37e4596a106f07880ffe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6499770380822894656, guid: 84be42d40e0e37e4596a106f07880ffe, type: 3}
       propertyPath: m_Pivot.x
