@@ -38,9 +38,16 @@ public class GameManager : MonoBehaviour
         generation = GameObject.Find("Generation").GetComponent<Generation>();
         movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+
         playerAlive = true;
+
         score = 0;
         scoreText.text = "" + score;
+
+        runF = 0f;
+        coinsF = 0f;
+        totalF = 0f;
+
         startPanel.SetActive(true);
         EndPanel.SetActive(false);
     }
@@ -64,8 +71,6 @@ public class GameManager : MonoBehaviour
     {
         playerAlive = false;
         EndPanel.SetActive(true);
-
-        
     }
 
     public void Score()
@@ -91,18 +96,25 @@ public class GameManager : MonoBehaviour
             }
                 
 
-            if(coinsF < inventory.coinsCount)
+            if(inventory.coinsCount != 0 && coinsF < inventory.coinsCount)
             {
                 coinsF = Mathf.Lerp(coinsF, inventory.coinsCount + 1, t * Time.deltaTime);
                 coinsPanel.text = "" + (int) coinsF;
+
             }
+            else if(inventory.coinsCount == 0)
+            {
+                coinsF = 0;
+                coinsPanel.text = "" + (int) coinsF;
+            }
+                
                 
 
             if((int) coinsF == inventory.coinsCount && (int) runF == score)
             {
                 if (totalF < score + inventory.coinsCount)
                 {
-                    totalF = Mathf.Lerp(totalF, score + inventory.coinsCount, t * Time.deltaTime);
+                    totalF = Mathf.Lerp(totalF, score + inventory.coinsCount + 1, t * Time.deltaTime);
                     TotalPanel.text = "" + (int) totalF;
                 }
                     

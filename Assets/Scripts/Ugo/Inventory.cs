@@ -4,6 +4,9 @@ using TMPro;
 
 public class Inventory : MonoBehaviour
 {
+    #region SerializedFields
+    [SerializeField] private CharacterAudio audio;
+    #endregion
     #region Attributes
     public int coinsCount;
     public TMP_Text coinsCountText;
@@ -24,6 +27,7 @@ public class Inventory : MonoBehaviour
 
     public void AddCoins (int count)
     {
+        audio.PlayCoinsSound();
         coinsCount += count;
         coinsCountText.text = coinsCount.ToString();
     }
