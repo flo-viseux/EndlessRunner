@@ -37,6 +37,7 @@ public class Generation : MonoBehaviour
     public int CdStairs;
     public int initialCdCoins;
     public int CdCoins;
+    public bool SWonGround;
     #endregion
 
     // Start is called before the first frame update
@@ -48,6 +49,7 @@ public class Generation : MonoBehaviour
         CdStairs = initialCdStairs;
 
         canCreateCoins = false;
+        SWonGround = true;
         CdCoins = initialCdCoins;
 
         speed = 0;
@@ -218,7 +220,20 @@ public class Generation : MonoBehaviour
                 newObstacle = Instantiate(Obstacles[i], plateforme.transform);
             }
 
-            newObstacle.transform.localPosition = localPos;
+            if (newObstacle.layer == 10 && !SWonGround)
+            {
+                newObstacle.transform.localPosition = localPos + Vector3.up * 1.2f;
+                SWonGround = !SWonGround;
+            }
+            else if(newObstacle.layer == 10 && SWonGround)
+            {
+                newObstacle.transform.localPosition = localPos;
+                SWonGround = !SWonGround;
+            }
+            else
+                newObstacle.transform.localPosition = localPos;
+
+
         }
         
         if(lastObstacle.layer == 9)
@@ -274,8 +289,10 @@ public class Generation : MonoBehaviour
             else
                 Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], left);
 
-
-            Coins.transform.localPosition = Vector3.zero;
+            if(left.transform.position.y > 0 && left.gameObject.layer == 10)
+                Coins.transform.localPosition = Vector3.down;
+            else
+                Coins.transform.localPosition = Vector3.zero;
         }
         else if (i == 1)
         {
@@ -284,7 +301,10 @@ public class Generation : MonoBehaviour
             else
                 Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], center);
 
-            Coins.transform.localPosition = Vector3.zero;
+            if (center.transform.position.y > 0 && center.gameObject.layer == 10)
+                Coins.transform.localPosition = Vector3.down;
+            else
+                Coins.transform.localPosition = Vector3.zero;
         }
         else if (i == 2)
         {
@@ -293,7 +313,10 @@ public class Generation : MonoBehaviour
             else
                 Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], right);
 
-            Coins.transform.localPosition = Vector3.zero;
+            if (right.transform.position.y > 0 && right.gameObject.layer == 10)
+                Coins.transform.localPosition = Vector3.down;
+            else
+                Coins.transform.localPosition = Vector3.zero;
         }
     }
 }

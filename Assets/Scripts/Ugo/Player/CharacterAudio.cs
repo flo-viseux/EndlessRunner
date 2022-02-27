@@ -13,6 +13,7 @@ public class CharacterAudio : MonoBehaviour
     [SerializeField] private RepetitiveSound SlideSound = null;
     [SerializeField] private RepetitiveSound FootStepSound = null;
     [SerializeField] private RepetitiveSound DeathSound = null;
+
     #endregion
 
     #region Attributes

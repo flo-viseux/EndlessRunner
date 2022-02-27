@@ -8,8 +8,10 @@ public class PlayerMovement : MonoBehaviour
     #region Serialized fields
     [SerializeField] private CharacterAnimationsEvents events = null;
     [SerializeField] private GameManager gameManager = null;
-    [SerializeField] private Collider body;
-    [SerializeField] private Collider legs;
+    [SerializeField] private CollisionBody body = null;
+    [SerializeField] private CollisionLegs legs = null;
+    [SerializeField] private Collider C_body;
+    [SerializeField] private Collider C_legs;
     [SerializeField] private Material dissolve;
     [SerializeField] private LayerMask[] rampes;
     #endregion
@@ -31,8 +33,6 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 raycastLeftOffset;
     public Vector3 _jumpForce;
     public bool _isGrounded = false;
-    public bool _isJumping = false;
-
 
     public bool alive;
     public bool hasStarting;
@@ -47,9 +47,9 @@ public class PlayerMovement : MonoBehaviour
         //Ajoutez de la jump force � la v�locit� du joueur
         if (_isGrounded)
         {
-            _isJumping = true;
+            legs._isJumping = true;
             _animator.SetTrigger(jumpHash);
-            legs.enabled = false;
+            C_legs.enabled = false;
             GetComponent<Rigidbody>().AddForce(_jumpForce, ForceMode.Impulse);
 
             events.OnJump -= Jump;
@@ -58,27 +58,29 @@ public class PlayerMovement : MonoBehaviour
 
     public void EndJump()
     {
-        legs.enabled = true;
-        _isJumping = false;
+        C_legs.enabled = true;
+        legs._isJumping = false;
         events.OnEndJump -= EndJump;
     }
 
     public void Slide()
     {
+        body._isSliding = true;
         _animator.SetTrigger(slideHash);
-
+        
         if (!_isGrounded)
         {
             GetComponent<Rigidbody>().AddForce( - _jumpForce, ForceMode.Impulse);
         }
 
-        body.enabled = false;
+        C_body.enabled = false;
         events.OnSlide -= Slide;
     }
 
     public void EndSlide()
     {
-        body.enabled = true;
+        body._isSliding = false;
+        C_body.enabled = true;
 
         events.OnEndSlide -= EndSlide;
     }
@@ -141,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
             moveLeft();
         }
         
-        if (Input.GetKeyDown(KeyCode.Z) && !_isJumping)
+        if (Input.GetKeyDown(KeyCode.Z) && legs._isJumping == false)
         {
             Jump();
         }
@@ -168,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _isGrounded = true;
             _animator.SetBool(groundHash, true);
-            legs.enabled = true;
+            C_legs.enabled = true;
         }   
         else
         {
@@ -180,22 +182,26 @@ public class PlayerMovement : MonoBehaviour
         if(alive)
             Movements();
 
-        if (alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") > 0 && hasStarting == false)
+        if (dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") > 0 && hasStarting == false)
         {
             dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 0f, lerpTimeStart * Time.deltaTime));
         }      
 
-        if(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") <= 0.05f)
+        if(hasStarting == false && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") <= 0.05f)
+        {
             hasStarting = true;
+            alive = true;
+        }
+            
 
-        if (!alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") < 1)
+        if (hasStarting == true && !alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") < 1)
             dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 1f, lerpTimeDeath * Time.deltaTime));
     }
 
     public void Awake() 
     {
         hasStarting = false;
-        alive = true;
+        alive = false;
         dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", 1f);
 
         events.OnJump += Jump;
@@ -218,20 +224,6 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube((transform.position + raycastOffset - transform.up) * _groundCheckDistance , halfExtentGround);
-    }
-
-    private void OnTriggerEnter(Collider other) 
-    {
-        if(other.gameObject.tag == "Death" && other.gameObject.layer == 10 && !_isJumping)
-        {
-            events.Death();
-        }
-        if(other.gameObject.tag == "Death" && other.gameObject.layer != 10)
-        {
-            events.Death();
-        }
-
-        
     }
     #endregion
 }

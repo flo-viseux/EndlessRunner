@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     public void Score()
     {
         if (playerAlive && generation.isPlaying == true)
-            score = (int) (Time.time * (Time.time / 5));
+            score = (int) (generation.speed * (generation.speed / 15));
 
         scoreText.text = "" + score;
     }
@@ -117,13 +118,14 @@ public class GameManager : MonoBehaviour
                     totalF = Mathf.Lerp(totalF, score + inventory.coinsCount + 1, t * Time.deltaTime);
                     TotalPanel.text = "" + (int) totalF;
                 }
-                    
-
-
             }
 
             generation.isPlaying = false;
             generation.speed = 0;
+
+            if (Input.anyKeyDown)
+                SceneManager.LoadScene("Game");
+
         }
 
         
