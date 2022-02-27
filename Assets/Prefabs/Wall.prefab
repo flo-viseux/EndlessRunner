@@ -107,12 +107,20 @@ PrefabInstance:
       value: Box2
       objectReference: {fileID: 0}
     - target: {fileID: 3239049796711247587, guid: b0352f7980fc60e4e9e0269afe5c0b9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3239049796711247587, guid: b0352f7980fc60e4e9e0269afe5c0b9b, type: 3}
       propertyPath: m_TagString
       value: Obstacles
       objectReference: {fileID: 0}
     - target: {fileID: 4031731914886467382, guid: b0352f7980fc60e4e9e0269afe5c0b9b, type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492855890106234865, guid: b0352f7980fc60e4e9e0269afe5c0b9b, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0352f7980fc60e4e9e0269afe5c0b9b, type: 3}

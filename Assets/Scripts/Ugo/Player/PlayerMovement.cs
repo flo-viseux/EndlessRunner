@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Collider body;
     [SerializeField] private Collider legs;
     [SerializeField] private Material dissolve;
+    [SerializeField] private LayerMask[] rampes;
     #endregion
 
     #region Attributes
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 raycastLeftOffset;
     public Vector3 _jumpForce;
     public bool _isGrounded = false;
+    public bool _isJumping = false;
 
 
     public bool alive;
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetTrigger(jumpHash);
 
+            _isJumping = true;
             legs.enabled = false;
             GetComponent<Rigidbody>().AddForce(_jumpForce, ForceMode.Impulse);
 
@@ -51,8 +54,8 @@ public class PlayerMovement : MonoBehaviour
     public void EndJump()
     {
             legs.enabled = true;
-
-            events.OnEndJump -= EndJump;
+        _isJumping = false;
+        events.OnEndJump -= EndJump;
     }
 
     public void Slide()
@@ -143,10 +146,18 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance))
+        if ((Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance, rampes[0]) 
+            || (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance, rampes[1])) 
+            || (Physics.Raycast(transform.position + raycastOffset, Vector3.down, out hit, _groundCheckDistance, rampes[2]))))
+        {
             _isGrounded = true;
+            legs.enabled = true;
+        }   
         else
+        {
             _isGrounded = false;
+        }
+
 
         if(alive)
             Movements();
@@ -165,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
 
         events.OnJump += Jump;
         events.OnSlide += Slide;
-        events.OnEndJump += EndJump;
+        //events.OnEndJump += EndJump;
         events.OnEndSlide += EndSlide;
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -188,11 +199,18 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawRay(transform.position + raycastOffset, Vector3.down * _groundCheckDistance);
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Death")
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(other.gameObject.tag == "Death" && other.gameObject.layer == 10 && !_isJumping)
         {
             Death();
         }
+        if(other.gameObject.tag == "Death" && other.gameObject.layer != 10)
+        {
+            Death();
+        }
+
+        
     }
     #endregion
 }

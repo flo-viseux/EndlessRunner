@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 556548342431928816}
   - component: {fileID: 2332220899306775866}
   - component: {fileID: 7855443613708484397}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tremplin2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

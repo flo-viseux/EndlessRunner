@@ -227,9 +227,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 4595533741778669903, guid: ac6436d7c8f410942a15c0b78cf1c7e0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6258899519234356163, guid: ac6436d7c8f410942a15c0b78cf1c7e0, type: 3}
       propertyPath: m_Name
       value: Cylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 6258899519234356163, guid: ac6436d7c8f410942a15c0b78cf1c7e0, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6258899519234356163, guid: ac6436d7c8f410942a15c0b78cf1c7e0, type: 3}
       propertyPath: m_TagString

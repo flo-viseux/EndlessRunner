@@ -1346,6 +1346,34 @@ PrefabInstance:
       propertyPath: _jumpForce.y
       value: 3.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: rampe.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: raycastOffset.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: rampes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: _groundCheckDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: rampes.Array.data[0].m_Bits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: rampes.Array.data[1].m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 1877289214, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
+      propertyPath: rampes.Array.data[2].m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 1281558871995854612, guid: 3ea3813471a2c4248977aebfbca024b9, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1685,6 +1713,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2103462867}
     m_Modifications:
+    - target: {fileID: 837911281854038148, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1804366610613934486, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3014006610169124609, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3363730226036342911, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3569350832695089784, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668378417112479117, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7706466756847375216, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1733,7 +1785,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plateformes
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 297461513483291156, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c0ebb85a83c53c5499b69f947998f974, type: 3}
 --- !u!1001 &6499770380502755086
 PrefabInstance:
