@@ -35,7 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     public bool alive;
-    public float lerpTime;
+    public bool hasStarting;
+    public float lerpTimeDeath;
+    public float lerpTimeStart;
     #endregion
 
     #region API
@@ -45,9 +47,8 @@ public class PlayerMovement : MonoBehaviour
         //Ajoutez de la jump force � la v�locit� du joueur
         if (_isGrounded)
         {
-            _animator.SetTrigger(jumpHash);
-
             _isJumping = true;
+            _animator.SetTrigger(jumpHash);
             legs.enabled = false;
             GetComponent<Rigidbody>().AddForce(_jumpForce, ForceMode.Impulse);
 
@@ -84,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveLeft()
     {
+        bool hasChange = false;
+
         if (currentCorridor == 0)
         {
             return;
@@ -98,7 +101,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void moveRight()
     {
-        
         if (currentCorridor == 2)
         {
             return;
@@ -107,6 +109,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentCorridor += 1;
             transform.position += new Vector3(3f, 0f, 0f);
+
         }
     }
 
@@ -137,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
             moveLeft();
         }
         
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && !_isJumping)
         {
             Jump();
         }
@@ -176,15 +179,21 @@ public class PlayerMovement : MonoBehaviour
         if(alive)
             Movements();
 
-        if(alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") > 0)
-            dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 0f, lerpTime * Time.deltaTime));
+        if (alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") > 0 && hasStarting == false)
+        {
+            dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 0f, lerpTimeStart * Time.deltaTime));
+        }      
 
-        if(!alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") < 1)
-            dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 1f, lerpTime * Time.deltaTime));
+        if(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") <= 0.05f)
+            hasStarting = true;
+
+        if (!alive && dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872") < 1)
+            dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(dissolve.GetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872"), 1f, lerpTimeDeath * Time.deltaTime));
     }
 
     public void Awake() 
     {
+        hasStarting = false;
         alive = true;
         dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", 1f);
 
@@ -196,11 +205,6 @@ public class PlayerMovement : MonoBehaviour
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-
-
-    // private void Start() {
-    //     //dissolve.SetFloat("Vector1_01e307ea533142d29e8670cdc9eb4872", Mathf.Lerp(1f, 0f, 20 * Time.deltaTime));
-    // }
 
     void OnDrawGizmos()
     {
