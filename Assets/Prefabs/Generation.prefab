@@ -55,6 +55,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   Plateforme: {fileID: 8124039387911890187, guid: eb0a0d14a9cbe5e40a6c4a2455d5a05e, type: 3}
   Wall: {fileID: 3698848461242756609, guid: 6965df55ac13f6b4c8a02af250f323f2, type: 3}
   SemiWall: {fileID: 7936128337797003618, guid: 96e472b7f7c214a438d4ff68433fe11a, type: 3}
@@ -77,3 +80,4 @@ MonoBehaviour:
   CdStairs: 0
   initialCdCoins: 21
   CdCoins: 0
+  SWonGround: 0

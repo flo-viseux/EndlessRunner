@@ -44,7 +44,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generation: {fileID: 0}
+  movement: {fileID: 0}
+  inventory: {fileID: 0}
+  audio: {fileID: 0}
+  gravity: {x: 0, y: -12, z: 0}
   playerAlive: 0
   score: 0
   scoreText: {fileID: 0}
-  gravity: {x: 0, y: -25, z: 0}
+  startPanel: {fileID: 0}
+  EndPanel: {fileID: 0}
+  t: 4
+  runF: 0
+  RunPanel: {fileID: 0}
+  coinsF: 0
+  coinsPanel: {fileID: 0}
+  totalF: 0
+  TotalPanel: {fileID: 0}

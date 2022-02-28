@@ -77,9 +77,9 @@ public class Generation : MonoBehaviour
         {
             intervalleDuration = 1f;
         }
-        else if(speed < 5.5f)
+        else if(speed < 6.5f)
         {
-            intervalleDuration = 0.36f;
+            intervalleDuration = 0.4f;
         }
         else if(speed < 11f && speed > 5.5f)
         {
