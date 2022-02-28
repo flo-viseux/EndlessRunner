@@ -127,8 +127,6 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hitRight;
         bool right = (Physics.BoxCast(transform.position + raycastRightOffset, halfExtentsObstacles, transform.right, out hitRight, Quaternion.identity, _groundCheckDistance));
-        if(right)
-            Debug.Log(hitRight.collider.name);
 
         RaycastHit hitLeft;
         bool left = (Physics.BoxCast(transform.position + raycastLeftOffset, halfExtentsObstacles, -transform.right, out hitLeft, Quaternion.identity, _groundCheckDistance));

@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
                 audio.PlayStartSound();
                 startPanel.SetActive(false);
                 generation.isPlaying = true;
-                generation.speed = 5f;
+                generation.speed = 4f;
                 movement._animator.SetTrigger(movement.playHash);
             }
         }
