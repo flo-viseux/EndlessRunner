@@ -10,12 +10,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Generation generation;
     [SerializeField] private PlayerMovement movement;
     [SerializeField] private Inventory inventory;
+    [SerializeField] private CharacterAudio audio = null;
 
     public Vector3 gravity;
 
     public bool playerAlive;
 
-    public int score;
+    public float score;
     public TMP_Text scoreText;
 
     public GameObject startPanel;
@@ -55,14 +56,14 @@ public class GameManager : MonoBehaviour
     
     public void OnStartGame()
     {
-
         if (Input.anyKeyDown && generation.isPlaying == false && movement.alive == true)
         {
             if(playerAlive)
             {
+                audio.PlayStartSound();
                 startPanel.SetActive(false);
                 generation.isPlaying = true;
-                generation.speed = 3f;
+                generation.speed = 5f;
                 movement._animator.SetTrigger(movement.playHash);
             }
         }
@@ -77,9 +78,9 @@ public class GameManager : MonoBehaviour
     public void Score()
     {
         if (playerAlive && generation.isPlaying == true)
-            score = (int) (generation.speed * (generation.speed / 15));
+            score += ((generation.speed + generation.speed) / 200);
 
-        scoreText.text = "" + score;
+        scoreText.text = "" + (int) score;
     }
 
     private void Update()
@@ -128,7 +129,10 @@ public class GameManager : MonoBehaviour
 
         }
 
-        
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
             
     }
 }

@@ -75,13 +75,9 @@ public class Generation : MonoBehaviour
 
         if (speed == 0)
         {
-            intervalleDuration = 8f;
+            intervalleDuration = 1f;
         }
-        else if(speed < 3f)
-        {
-            intervalleDuration = 0.40f;
-        }
-        else if(speed < 5.5f && speed > 3f)
+        else if(speed < 5.5f)
         {
             intervalleDuration = 0.36f;
         }
@@ -222,7 +218,7 @@ public class Generation : MonoBehaviour
 
             if (newObstacle.layer == 10 && !SWonGround)
             {
-                newObstacle.transform.localPosition = localPos + Vector3.up * 1.2f;
+                newObstacle.transform.localPosition = localPos + Vector3.up * 1.1f;
                 SWonGround = !SWonGround;
             }
             else if(newObstacle.layer == 10 && SWonGround)
@@ -289,9 +285,6 @@ public class Generation : MonoBehaviour
             else
                 Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], left);
 
-            if(left.transform.position.y > 0 && left.gameObject.layer == 10)
-                Coins.transform.localPosition = Vector3.down;
-            else
                 Coins.transform.localPosition = Vector3.zero;
         }
         else if (i == 1)
@@ -301,9 +294,6 @@ public class Generation : MonoBehaviour
             else
                 Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], center);
 
-            if (center.transform.position.y > 0 && center.gameObject.layer == 10)
-                Coins.transform.localPosition = Vector3.down;
-            else
                 Coins.transform.localPosition = Vector3.zero;
         }
         else if (i == 2)
@@ -313,9 +303,6 @@ public class Generation : MonoBehaviour
             else
                 Coins = Instantiate(Collectibles[Random.Range(0, Collectibles.Count)], right);
 
-            if (right.transform.position.y > 0 && right.gameObject.layer == 10)
-                Coins.transform.localPosition = Vector3.down;
-            else
                 Coins.transform.localPosition = Vector3.zero;
         }
     }
