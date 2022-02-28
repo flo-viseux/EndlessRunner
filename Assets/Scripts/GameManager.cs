@@ -91,9 +91,9 @@ public class GameManager : MonoBehaviour
 
         if (!playerAlive)
         {
-            if (runF < score)
+            if (runF < (int) score)
             {
-                runF = Mathf.Lerp(runF, score + 1, t * Time.deltaTime);
+                runF = Mathf.Lerp(runF, (int) score + 1, t * Time.deltaTime);
                 RunPanel.text = "" + (int) runF;
             }
                 
@@ -112,11 +112,11 @@ public class GameManager : MonoBehaviour
                 
                 
 
-            if((int) coinsF == inventory.coinsCount && (int) runF == score)
+            if((int) coinsF == inventory.coinsCount && (int) runF == (int) score)
             {
                 if (totalF < score + inventory.coinsCount)
                 {
-                    totalF = Mathf.Lerp(totalF, score + inventory.coinsCount + 1, t * Time.deltaTime);
+                    totalF = Mathf.Lerp(totalF, (int) (score + inventory.coinsCount) + 1, t * Time.deltaTime);
                     TotalPanel.text = "" + (int) totalF;
                 }
             }
